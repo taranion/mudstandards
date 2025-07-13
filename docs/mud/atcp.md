@@ -71,6 +71,8 @@ buddylist 5
 
 See https://web.archive.org/web/20100330064816/http://www.ironrealms.com/nexus/atcp.html
 
+From here on work in progress
+
 ### auth 1
 Auth.Request CH
 

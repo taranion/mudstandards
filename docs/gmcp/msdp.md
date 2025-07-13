@@ -3,9 +3,9 @@ sidebar_label: MSDP
 ---
 # MSDP over GMCP
 
-This package has been defined by Mudlet.
-
 Source: [Mudhalla](https://tintin.mudhalla.net/protocols/gmcp/)
+
+Wrapping MSDP was one of the first applications of GMCP.
 
 MSDP provides the client with a list of supported variables when requested, so it's not a requirement for MUD servers to provide documentation on the packages it supports.
 
