@@ -21,17 +21,6 @@ char.base {
 
 > Attention: The keys used in this command highly depend on the individual server.
 
-## Char.Login
-
-This message is sent by the client to log into a server
-
-````json
-Char.Login {
-    "name": "somename",
-    "password": "somepassword"
-}
-````
-
 ## Char.Name
 
 This message is sent by the server
@@ -121,7 +110,7 @@ char.status { "level": 210, "tnl": 1000, "hunger": 70, "thirst": 70, "align": 18
 
 ## char.worth
 These fields are related to achievements or 'worth' in the game and cover qp, tp, etc:
- 
+
 **Example from Aardwolf**
 ```json
 char.worth { "gold": 23128310661, "bank": 750000, "qp": 5052186, "tp": 10930, "trains": 6, "pracs": 14, "qpearned": 12345678 }
