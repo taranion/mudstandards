@@ -68,6 +68,7 @@ Char.Login.Credentials {}
 2. Server responds with: `Char.Login.Default {"type": ["password-credentials"]}`
 3. Client sends: `Char.Login.Credentials {"account": "username", "password": "password"}`
 4. Server validates credentials and performs login.
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -83,6 +84,7 @@ sequenceDiagram
         Client->>Server: Char.Login.Credentials {} 
     end
 ```
+
 Example password flow ([source](https://gist.github.com/vadi2/6fcc05500823122143a5d45c43915ff0))
 
 
