@@ -82,7 +82,7 @@ const config = {
         title: 'MUD Standards',
         logo: {
           alt: 'Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/Logo.png',
         },
         items: [
           {
