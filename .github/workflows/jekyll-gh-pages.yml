@@ -36,6 +36,8 @@ jobs:
           node-version: 18  # Use the Node.js version required by Docusaurus
       - name: Install dependencies
         run: npm install
+      - name: Install Mermaid
+        run: npm install --save @docusaurus/theme-mermaid
       - name: Build Docusaurus site
         run: npm run build
 #      - name: Build with Jekyll
