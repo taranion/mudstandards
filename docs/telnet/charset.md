@@ -10,8 +10,10 @@ description: Allows client to inform server about terminal screen size
 
 Early versions of Telnet assumed that ASCII charset is in use. This telnet option allowed switching to a different charset.
 
-Since [RFC 5198](https://www.rfc-editor.org/rfc/rfc5198) UTF-8 character encoding along with Unicode charset is the new default, 
-but it may still be useful to explicitly agree on this.
+[RFC 5198](https://www.rfc-editor.org/rfc/rfc5198) introduces a default of UTF-8 for new protocols going forward,
+but notes in Appendix D that further work on a new telnet option would be needed to retrofit this to telnet, and does
+not change existing protocols.
+
 
 | Tokens         | Bytes      | Meaning                                           |
 | -------------- | ---------- | ------------------------------------------------- |
