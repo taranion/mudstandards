@@ -37,8 +37,8 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Install Mermaid
-          run: npm install --save @docusaurus/theme-mermaid
-      - name: Install Mermaid
+        run: npm install mermaid
+      - name: Install Mermaid Theme
         run: npm install --save @docusaurus/theme-mermaid
       - name: Build Docusaurus site
         run: npm run build
