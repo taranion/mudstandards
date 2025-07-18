@@ -1,0 +1,7 @@
+{
+  "label": "Inter-MUD",
+  "link": {
+    "type": "generated-index",
+    "description": "Protocols to talk between MUDs"
+  }
+}

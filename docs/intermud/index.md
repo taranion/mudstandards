@@ -1,11 +1,9 @@
 ---
 sidebar_position: 1
 sidebar_label: Overview
-description: Short overview over all telnet options
 "link": {
     "type": "generated-index",
-    "description": "Overview of Telnet options relevant to MUDs"
-  }
+}
 ---
 # Overview
 
