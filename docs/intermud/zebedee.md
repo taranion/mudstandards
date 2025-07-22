@@ -131,7 +131,7 @@ A good protocol definition and implementation are available (from Nostradamus@Ze
 
 Note that the fields "NAME" and "UDP_PORT" should be present in every message. Very common are the fields "ID" (used whenever an reply is expected) and "SND" (the sender: he should receive the reply). These fields will not be mentioned in the list below.
 
-"channel"
+### channel
     The channel-request is used for sending a message on any channel. The "CMD" field is optional and may be omitted for normal messages. Note that you should not send an history or list request to _all_ known muds!
 
     "CHANNEL"
@@ -162,13 +162,13 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         2
             The message is a gemote. 
 
-"finger"
+### finger
     Retreive information about a player or creator on a remote mud.
 
     "DATA"
         The player of whom information is requested 
 
-"locate"
+### locate
     Check whether a certain player is logged on at a remote mud. This request is usually send to all known muds at the same time.
 
     "user"
@@ -189,13 +189,13 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
     "DATA"
         The player to find. 
 
-"man"
+### man
     Retreive a manual page from a remote mud. Many muds don't support this feature...
 
     "DATA"
         The name of the requested manual page 
 
-"mail"
+### mail
     An extension to the standard protocol, by Alvin@Sushi. This is used to send mails from one mud to another.
 
     "udpm_status"
@@ -225,10 +225,10 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
     "DATA"
         The body of the mail (the actual message) 
 
-"ping"
+### ping
     A ping request has only the standard fields, the reply is usually a short string like " is alive."
 
-"query"
+### query
     Get standard information about another mud. This is the only command of which the reply may not include a load of rubbish, but should only hold the requested information, so that it can be parsed by the server.
 
     "DATA"
@@ -267,7 +267,7 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         "www"
             The URL of the mud's web page (e.g. http://mud.stack.nl/) 
 
-"reply"
+### reply
     This request method is used for _all_ replies.
 
     "DATA"
@@ -285,7 +285,7 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
     "FND"
         This field is only used in a response to a "locate" request and should be 1 if the player was located and 0 otherwise 
 
-"tell"
+### tell
     Say something to a player on another mud.
 
     "RCPNT"
@@ -294,7 +294,7 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
     "DATA"
         Whatever you wish to say to this person 
 
-"who"
+### who
     List the people that are active on a remote mud. The anwer usually contains some active information about the players, like titles, levels or age.
 
     "DATA"
