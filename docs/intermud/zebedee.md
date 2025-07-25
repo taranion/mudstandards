@@ -4,6 +4,7 @@ sidebar_label: Zebedee
 :::note
 **Source**: [http://mud.stack.nl/intermud/zebedee.protocol.html](https://web.archive.org/web/20051229142240/http://mud.stack.nl/intermud/i2.protocol.html)
 Also: [Zebedee Inetd Services](https://web.archive.org/web/20011218124054/http://mud.stack.nl/intermud/zebedee.html)
+Also: [Portals](https://groups.google.com/g/de.alt.mud/c/UR0xHq0YARc/m/HywTEp1LMgoJ) and used [source](https://github.com/unitopia-de/lp245.git)
 
 The CD protocol was quite basic and easy to implement, however it has some important drawbacks: It is not possible to send messages longer than 1kb. Only 1 intermud channel is implemented. And there is no message acknowledgement - even though many packets are lost due to the unreliability of the UDP (user datagram protocol) used. So the protocol is not really fit for sending mud-lists, mail or files.
 
@@ -28,6 +29,10 @@ architecture-beta
     m1:R -- L:m4
     m2:L -- R:m3
 ```
+
+## Initializing
+On start-up the MUD that wishes to connect must load a static [MUD list](#the-mud-list-format) from a well known source (e.g. file system). Within this list there a known peers for Zebedee communication.
+
 
 
 
@@ -133,95 +138,95 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
 
 ### channel
     The channel-request is used for sending a message on any channel. The "CMD" field is optional and may be omitted for normal messages. Note that you should not send an history or list request to _all_ known muds!
-
+    
     "CHANNEL"
         The channel on which a message is send (the standard channels are "intermud", "intercode", "interadm", "d-chat", "d-code" and "d-adm"; on the d-channels German is spoken)
-
+    
     "DATA"
         The message to be send (not used with history/list request)
-
+    
     "CMD" (optional)
-
+    
         ""
             for normal intermud messages,
-
+    
         "emote"
             if the message is an emote,
-
+    
         "history"
             for an history request: the last 20 lines of this channel will be shown.
-
+    
         "list"
             to list all remote users listening to this channel 
-
+    
     "EMOTE" (optional)
-
+    
         1
             The message is a normal emote.
-
+    
         2
             The message is a gemote. 
 
 ### finger
     Retreive information about a player or creator on a remote mud.
-
+    
     "DATA"
         The player of whom information is requested 
 
 ### locate
     Check whether a certain player is logged on at a remote mud. This request is usually send to all known muds at the same time.
-
+    
     "user"
         Name of the person who requests the information.
-
+    
     "vbs"
         The verbose option has only two pre-defined values:
-
+    
         1
             Even report when the result was negative
-
+    
         2
             Don't do timeouts, but keep waiting 
-
+    
     "fnd"
         The found option is only used in the reply and it's value is either 1 (success) or 0 (failure). The absence of a found parameter indicates failure as well. 
-
+    
     "DATA"
         The player to find. 
 
 ### man
     Retreive a manual page from a remote mud. Many muds don't support this feature...
-
+    
     "DATA"
         The name of the requested manual page 
 
 ### mail
     An extension to the standard protocol, by Alvin@Sushi. This is used to send mails from one mud to another.
-
+    
     "udpm_status"
         This field should only be used in the reply and indicates how mail is handled. Currently there are four pre-defined values for the status field:
-
+    
         0
             time out
-
+    
         1
             delivered ok
-
+    
         2
             unknown player
-
+    
         3
             in spool (will be delivered later) 
-
+    
     "udpm_writer"
         Name of the person who wrote this mail
-
+    
     "udpm_spool_name"
         Should be returned as sent, this value is used to remove the mail from the spool directory after it has been delivered (or refused)
-
+    
     "udpm_subject"
         Subject of the mail message
-
+    
     "DATA"
         The body of the mail (the actual message) 
 
@@ -230,79 +235,113 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
 
 ### query
     Get standard information about another mud. This is the only command of which the reply may not include a load of rubbish, but should only hold the requested information, so that it can be parsed by the server.
-
+    
     "DATA"
         The following queries are pretty much standard:
-
+    
         "commands"
             List all commands that are supported by the inetd
-
+    
         "email"
             The email-address of the mud administrator(s)
-
+    
         "hosts"
             A listing of all hosts in a special format [t.b.d.]
-
+    
         "inetd"
             The version number of the inetd used
-
+    
         "list"
             The list of all items which can be queried
-
+    
         "info"
             A short human-readable string with practically "query" information
-
+    
         "mud_port"
             The portnumber that players connect to on login
-
+    
         "time"
             The local time for this mud
-
+    
         "users"
             A list of the people that are active in this mud
-
+    
         "version"
             The version of the mud-driver (and library)
-
+    
         "www"
             The URL of the mud's web page (e.g. http://mud.stack.nl/) 
 
 ### reply
     This request method is used for _all_ replies.
-
+    
     "DATA"
         A human-readable string, containing the reply to a given query
-
+    
     "RCPNT"
         The same name as in the "SND" field or the query; Usually this is the name of the player who initiated the query
-
+    
     "QUERY"
         This field is only used in a response to a "query" request and should be equal to the "DATA" field of that request
-
+    
     "VBS"
         This field is only used in a response to a "locate" request and should be equal to the "VBS" field of that request
-
+    
     "FND"
         This field is only used in a response to a "locate" request and should be 1 if the player was located and 0 otherwise 
 
 ### tell
     Say something to a player on another mud.
-
+    
     "RCPNT"
         Name of the player to whom you are talking
-
+    
     "DATA"
         Whatever you wish to say to this person 
 
 ### who
     List the people that are active on a remote mud. The anwer usually contains some active information about the players, like titles, levels or age.
-
+    
     "DATA"
         Not supported by many muds. Introduced August 1997.
         Additional switch(es) (space separated) that change the appearence of the resulting list. The switches normally resemble the switches used inside of that mud for the 'who' command. Typical values include:
-
+    
         "short" "s" "-short" "-s" "kurz"
             Return a concise listing. 
         "alpha" "a" "alphabetisch" "-alpha" "-a"
             Sort the players alphabetically. 
+
+## The MUD list format
+
+A typical MUD list - here an example of active MUDs in July 2025 - looks like this:
+
+```
+AbendDaemmerung:178.254.21.129:4246:channel,finger,locate,tell,who:*
+AgeOfHeroes:128.76.165.163:2347:channel,finger,tell,who,mail,locate:*
+Aldebaran:85.214.77.105:4246:channel,finger,locate,tell,who,mail,man:*
+Avalon:85.10.205.77:4246:channel,finger,locate,man,tell,who,mail,gopher:*
+Beutelland:128.130.95.62:4246:tell,who,channel,finger,locate,mail:*
+DeeperTrouble:172.104.251.185:8889:channel,finger,locate,tell,who:*
+DevDune:138.197.134.82:6791:*:*
+DragonfireII:97.95.18.87:2000:channel,finger,tell,who,mail,locate:*
+Efferdland:152.53.16.20:4246:channel,finger,tell,who,mail,www,htmlwho,locate:*
+EotL:38.86.32.239:4246:channel,finger,locate,man,tell,who:*
+FinalFrontier:78.46.121.106:7610:channel,finger,tell,locate,who,mail,man,update,webquery:*
+Kerovnia:151.198.54.56:1985:channel,finger,encoding,locate,mail,man,newsgroup,tell,who:*
+Magicmud:152.53.16.20:3002:channel,finger,tell,who,mail,www,htmlwho,locate:*
+MorgenGrauen:89.58.11.82:4246:channel,finger,tell,who,mail,www,htmlwho,locate:*
+Nightfall:82.153.225.173:4246:channel,finger,encoding,locate,man,tell,who,mail,www:*
+OuterSpace:159.69.87.242:3002:*:*
+Realmsmud:68.57.196.242:4246:*:*
+Seifenblase:217.11.52.247:4246:channel,finger,locate,man,tell,who,mail,gopher:*
+SilberLand:77.237.49.230:4246:channel,finger,tell,who,mail,www,htmlwho,locate,man:*
+Tamedhon:212.132.115.155:4246:channel,finger,tell,who,mail,www,htmlwho,locate:*
+Tauros:34.221.136.93:5050:*:*
+Theloria:178.254.12.82:3335:channel,finger,tell,locate,who,mail,newsgroup,portal:*
+Tubmud:85.214.44.4:7683:channel,finger,locate,man,tell,who,www,mail:*
+UNItopia:217.11.52.248:3335:channel,finger,tell,locate,who,mail,newsgroup:*
+WL-Development:49.13.232.95:5757:channel,finger,tell,who,mail,locate,man:*
+Wunderland:49.13.232.95:4246:channel,finger,tell,who,mail,locate,man:*
+
+```
 
