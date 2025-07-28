@@ -2,7 +2,7 @@
 **Source 1**: [MUdnet Credits](https://web.archive.org/web/20020311130232/https://www.mudnet.org/about-credits.php)<br/>
 **Source 2**: [Softcode for PennMush](https://web.archive.org/web/20020316174745/http://www.mudnet.org/mudnet.inst.penn) or [TinyMU*](https://web.archive.org/web/20020316194701/http://www.mudnet.org/mudnet.inst.tiny)
 
-*Mudnet* is a heavily modified variant of [MushLink](Mushlink) that made its 
+*Mudnet* is a heavily modified variant of [MushLink](mushlink) that made its 
 debut in 1997. Like MushLink, it operates as a bot user with special permissions
 that logs into the MUSH.<br/>
 Like MushLink a *Mudnet* central server connects to the MU* server as a special 
