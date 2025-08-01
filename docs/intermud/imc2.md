@@ -7,6 +7,7 @@ sidebar_label: IMC2
 **Source 1**: [http://www.mudbytes.net/imc2-intermud-protocol-documentation](https://web.archive.org/web/20080310185518/http://www.mudbytes.net/imc2-intermud-protocol-documentation)<br/>
 **Source 2**: [https://www.circlemud.org/pub/CircleMUD/contrib/imc/imc2-circle3bpl15.tar.gz](https://www.circlemud.org/pub/CircleMUD/contrib/imc/imc2-circle3bpl15.tar.gz) <br/>
 **Source 3**: [Gammon Forum](https://www.gammon.com.au/forum/?id=4080)
+**Source 4**: [IMC 1 existed 1996](https://www.circlemud.org/maillist/1996-07/0721.html)
 
 This protocol was used for Merc,Smaug,ROM codebases. It used a centralized router and TCP connections.
 It was introduced in late 2004.

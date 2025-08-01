@@ -37,7 +37,7 @@ timeline
     title History of Intermud Protocols
     1992 : CD Intermud
     1993 : Intermud 2
-         : Zebedee Intermud
+    1994 : Zebedee Intermud
     1995 : Circle Intermud
     1996 : IMC2 (??)
          : MushLink
@@ -45,6 +45,7 @@ timeline
          : Gates of Time Intermud
          : AberChat
          : Mudnet
+         : RoM Intermud
 ```
 
 ```mermaid

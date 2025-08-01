@@ -59,6 +59,21 @@ PKT:mudname:packet-id:packet-number/total-packets|rest-of-packet
 
 In this case, the mudname and packet-id combine to form a unique id for the packet. The packet-number and total-packets information is used to determine when all buffered packets have been received. The rest-of-packet part is not parsed, but is stored while the receiver awaits the other parts of the packet. When/if all parts have been received they are concatenated and decoded as a normal packet.
 
+### Additional format
+With release of version 0.7 Beta 2, an alternative package format was introduced, where the delimiter "|" was replaced with a linebreak.
+
+:::note[Developers note for 0.7 Beta 2]
+Developers please note: This code begins the migration to the new packet format (which resembles SMTP). The packet format described elsewhere in this documentation will become obsolete. This code still transmits packets in the old format by default, but reads both the old and new formats. The new format will be of the form:
+```
+HEADER1:data1
+HEADERN:dataN
+
+body-data
+```
+In other words, the old '|' delimiter will be replaced by '\n', and the main DATA field will now be preceeded with a blank line ("\n\n") rather than "DATA:".
+:::
+As of today existing implementations still use the old format. They may understand the new one, though.
+
 ------
 
 ## PACKET ENCODING / DECODING
@@ -344,4 +359,15 @@ WL-Development:49.13.232.95:5757:channel,finger,tell,who,mail,locate,man:*
 Wunderland:49.13.232.95:4246:channel,finger,tell,who,mail,locate,man:*
 
 ```
+## History
+The following paragraphs where written by the author of the protocol in May 1995
 
+:::note
+Dissapointed with the lack of a well implemented intermud system for Amylaar muds, I originally intended to simply port the CD intermud system. After examining the code for the CD system I became disenchanted by it's design and what I saw as limitations in it's protocol and implementation -- in particular it's limitations on the size of data transferred and it's lack of any form of reliability scheme.
+
+Around this time Alvin@Sushi (aka. James Armstrong) began experimenting with his own UDP-based intermud system which included simple handshaking. I was involved in testing of this code and, inspired by this approach, began developing my own system based on the concepts conceived by Alvin.
+
+Since it conception, the intermud package (often referred to as the "inetd" system) has become a fully fledged and functional intermud communication system. More recently, testing and development has been done on both Amylaar and CD based muds to ensure that the code is fully portable between the two systems. It also allows the CD intermud system to run alongside it to provide the greatest flexibility and compatability to mud admins.
+
+Mark / Nostradamus@Zebedee.
+:::
