@@ -159,163 +159,164 @@ Typical parameters are:
 
 ### "gfinger_q"
     Retreive information about a player or creator on a remote mud.
-
+    
     "ASKWIZ"
         The real name of the person who asks the information
-
+    
     "PLAYER"
         The name of the player about who info is asked 
 
 ### "gfinger_a"
     The answer to a "gfinger_q"-request: finger information about a player.
-
+    
     "ASKWIZ"
         This value must be the same as in the query
-
+    
     "MSG"
         The available finger information 
 
 ### "gtell"
     This was one of the first extensions and is supported by practically every mud which uses this protocol. You use it to tell something to a person on another mud.
     The confirmation of a tell, should come in a "affirmation_a" packet; however many muds simply send a "gtell" message back from a non-existant user (e.g. "root" or "udp-daemon") telling you whether the message was shown to the remote user, or not.
-
+    
     "WIZFROM"
         The name of the person who says something
-
+    
     "WIZTO"
         The name of the person to whom is spoken
-
+    
     "MSG"
         The actual message 
 
 ### "affirmation_a"
     This is the affirmation of a "gtell" message.
-
+    
     "TYPE"
         This value always is "gtell"
-
+    
     "WIZFROM"
         The name of the person who received the tell message
-
+    
     "WIZTO"
         The name of the person to send the confirmation to
-
+    
     "MSG"
         The actual affirmation message 
 
 ### "gchannel"
     This is sent from one mud to another holding a message to present on yet another 'global wizline'. It is an extension to the default wizline and was probably introduced by the Eastern Stories mudlib (based on TMI-2). The 'es' channel is supposed to be restricted to MUDs with this mudlib; and the 'twiz' (taiwanese wizards) channel to IP-numbers starting with 140. I say "supposed", because they all show up in my logfiles ;-)
-
+    
     "USRNAME"
         Name of the wizard sending the message in ASCII
-
+    
     "CNAME"
         Name of the wizard sending the message in Big5 character set
-
+    
     "CHANNEL"
         The channel this wizards uses: known channels are 'es', 'gwiz', 'twiz' and 'jy'
-
+    
     "MSG"
         The actual message text as given by the wizard (usually in Big5 characters)
-
+    
     "EMOTE"
         The integer 1 if this message is to be interpreted (shown) as an emote (like Koresh smiles), or 0 otherwise 
 
 ### "locate_q"
     Check whether a certain player is logged on (or exists) in this mud. This request is usually send to all known muds at once.
-
+    
     "ASKWIZ"
         The real name of the person who asks the information
-
+    
     "TARGET"
         The name of the player we are looking for 
 
 ### "locate_a"
     The answer to a locate-request. Some muds only send a reply when the person was actually located (and leave out the "LOCATE" parameter).
-
+    
     "ASKWIZ"
         This value must be the same as in the query
-
+    
     "TARGET"
         This value must be the same as in the query
-
+    
     "LOCATE"
         "yes" or "no", depending on success 
 
 ### "mail_q"
     This extension was first added in August 1993 by Inspiral@Tabor. Use this to send an intermud mail message to somebody at another mud. Note that mail messages are usually longer than the maximum size of an UDP packet, so they will be split up in several packets. Some MUDs only support these messages over TCP connections.
-
+    
     "WIZTO"
         The mail recipient
-
+    
     "WIZFROM"
         The mail sender
-
+    
     "DATE"
         A timestamp for the mail (usually in seconds since 1-1-1970)
-
+    
     "SUBJECT"
         A subject for the mail message
-
+    
     "CC"
         Optional adresses for extra recipients
-
+    
     "ENDMSG"
         The value is "1" iff this is the last packet of a message, it is usually omitted for preceding messages This should always be 1 if the message fits in a single packet
-
+    
     "MSG"
         The contents of the mail: this may be a multi-line string 
 
 ### "mail_a"
     Confirmation for a received intermud mail message.
-
+    
     "ENDMSG"
         Present with value "1" iff the mail_q had this set as well
-
+    
     "RESEND"
         Optional: ask the originator MUD to resend a message that could not be processed. I've never seen this option actually being used... 
-        
+
 ### "rwho_q"
     This extensions is used very often as well. It will list the users on the remote mud.
     Only one parameter is used:
-
+    
     "ASKWIZ"
         The real name of the person who asks the information 
 
 ### "rwho_a"
     The reply to a rwho query. There is no standard layout for the reply; it should be shown directly to the player who requested the info. Admins are free to include as little or as much information as they like (titles, levels, etcetera).
-
+    
     "ASKWIZ"
         This value must be the same as in the query
-
+    
     "RWHO"
         The string listing all users on the remote mud 
 
 ### "supported_q"
     Check whether a remote mud supports a certain intermud service.
-
+    
     "CMD"
         Any intermud command (e.g. "ping_q")
-
+    
     "ANSWERID"
         An unique id for recognizing the answer (this can be the name of a player when the message is initiated by one). 
 
 ### "supported_a"
     In the original protocol, this (undocumented) command returns the "SUPPORTED" parameter with value "yes" when the command is supported and "NOTSUPPORTED" with value "yes" otherwise. However some implementations appear to be using the "no" value for "SUPPORTED" in the latter case. Either way: a mud should not really depend on the answer to this query.
-
+    
     "CMD"
         This value must be the same as in the query
-
+    
     "ANSWERID"
         This value must be the same as in the query
-
+    
     "SUPPORTED"
         The only defined value is "yes"
-
+    
     "NOTSUPPORTED"
         The only defined value is "yes" (To avoid confusion, SUPPORTED and NOTSUPPORTED should never be used in combination!) 
-        
-                
+
+
+​                
 ## Future extensions
 
 There are numerous possibilities for new commands in the protocol. Some  examples of what could be added are commands to handle:
@@ -392,35 +393,27 @@ Broadcasts wie Channelmeldungen werden durch einzelnes Ansprechen aller 'bekannt
 
 ## MUDs using Intermud2
 
-niverses
-DarkeFOStest
-NT.ULTIMATE
-DarkeMUD
-DarkePAIN
-DarkeFOS
-DarkeDEV
-PowerStruggleMUD
-The Admin Mud III
-炎黃群俠傳
-Darkness and Despair
-Lonely World
-Core MUD
-XLQY
-JY_RECORD
-TimMUD
-DayBreakRidge
-Time Space Dreamland
-CsillagKod
-Break World
-ElveszettVilag
-Illusory of time
-ElveszettVilag2
-Revival World
-Bastard
-ElveszettVilagLW
-Karhozat
-DarkeMUDtest
-YHMUD
-Aranylaz
-#TIMESTAMP#
-Sat Jul 26 08:56:18 2025
+| MUD                  | IP                                        | Intermud 2 Port |
+| -------------------- | ----------------------------------------- | --------------- |
+|                      |                                           |                 |
+| Universes            | [108.252.255.105](http://108.252.255.105) | 3341            |
+| OuterSpace           | [159.69.87.242](http://159.69.87.242)     | 3001            |
+| jy_record            | [1.34.90.150](http://1.34.90.150)         | 6670            |
+| BrutaliaII           | [79.120.193.52](http://79.120.193.52)     | 4452            |
+| The Dream Of Seven   | [210.59.236.38](http://210.59.236.38)     | 7004            |
+| Time Space Dreamland | [210.59.236.38](http://210.59.236.38)     | 5505            |
+| Fantasy Space        | [210.59.236.38](http://210.59.236.38)     | 5559            |
+| Revival World        | [210.59.236.38](http://210.59.236.38)     | 4004            |
+| The Admin Mud III    | [210.59.236.38](http://210.59.236.38)     | 3004            |
+| MYSTICISM-MUD        | [124.223.67.13](http://124.223.67.13)     | 2027            |
+| TimMUD               | [104.154.76.197](http://104.154.76.197)   | 5563            |
+| BrutalDev            | [79.120.193.52](http://79.120.193.52)     | 4456            |
+| CsillagKod           | [91.205.173.162](http://91.205.173.162)   | 7785            |
+| ElveszettVilag2      | [78.131.8.19](http://78.131.8.19)         | 3341            |
+| ElveszettVilag       | [78.131.8.19](http://78.131.8.19)         | 6674            |
+| Limbo                | [91.205.173.162](http://91.205.173.162)   | 9008            |
+| Karhozat             | [91.205.173.162](http://91.205.173.162)   | 4463            |
+| Aranylaz             | [91.205.173.162](http://91.205.173.162)   | 4329            |
+| Bastard              | [91.205.173.162](http://91.205.173.162)   | 2230            |
+| Illusory of time     | [220.133.199.45](http://220.133.199.45)   | 7004            |
+| DarkeMUD             | [50.38.11.140](http://50.38.11.140)       | 5567            |
