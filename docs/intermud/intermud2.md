@@ -372,30 +372,10 @@ Note that the command is called as a function. What is needed in your separate f
 You also need to redefine the 'execute_udp_command' above to include your own command additions in the switch.
 
 ----
-##  Was ist InterMud2
-
-Hier eine sehr kurze Zusammenstellung was das ist, was wir immer InterMud2 nennen. Das genaue Protokoll ist in den entsprechenden 'Standards' nachzulesen, zum Beispiel die Hilfeseiten in der LDmud Distribution (zB hier Basics und Protokoll).
-
-    Kommunikation zwischen zwei Muds (Broadcasts werden durch n Einzelkommunikationen erreicht).
-    Verwendet UDP mit 1 kB Paketen.
-    Darauf aufsetzend das PKT Protokoll
-    Darauf wiederum aufsetzend das eigentliche I2 Protokoll. Bei Paketen < 1 kB darf das zwischengeschaltete PKT Protokoll wegfallen und I2 wird direkt über UDP gesendet.
-
-Historisch gesehen ist das benutzte Protokoll in Wirklichkeit Zebedee Intermud mit Alvin@Sushi's Mail Extension. Beides ist eine Erweiterung des eigentlichen Intermud2 aus dem CD.
-
-Die I2 Pakete sind Strings der Art "key:value|key2:value2|key3:value3" . Da es für ':' und '|' keine Escapes gibt, dürfen diese Zeichen nicht in Keys oder Values vorkommen. Dies ist natürlich für Nutzertexte untragbar. Deswegen werden die Nutzdaten immer in einem Feld mit dem Schlüssel "DATA" übertragen. Er muss immer am Ende des Paketstrings liegen, da in seinem Value keine Trenntoken mehr gesucht werden.
-
-Da das verbindungslose UDP benutzt wird, kann man nicht sicher sein, ob ein Paket das Zielmud erreichte. Um dieses etwas auszugleichen werden bei den meisten Pakettypen Replypakete verwendet. Kommt kein Reply wird die Nachricht nochmals gesendet (meistens bis zu maximal 3 Mal).
-
-Alle Nutzdaten basieren auf Texten, die direkt an den Spieler ausgegeben werden. Insbesondere kann eine Mudlib schwer unterscheiden ob ein Reply-Text eine Fehlermeldung oder ein OK war.
-
-Broadcasts wie Channelmeldungen werden durch einzelnes Ansprechen aller 'bekannten' Muds erreicht, also für jedes Mud ein Paket erzeugt und gesendet. Oftmals gehen hierbei aber Pakete verloren, da Netzrouter auf dem Weg bei einem Massenansturm von > 100 UDP Paketen einfach welche verwerfen (dürfen). Ausserdem muss in jedem Mud die Mudliste aktuell gehalten werden, was sich in der Praxis als mehr oder weniger schwierig erweist (auch durch weitere Protokollmängel). 
-
 ## MUDs using Intermud2
 
 | MUD                  | IP                                        | Intermud 2 Port |
 | -------------------- | ----------------------------------------- | --------------- |
-|                      |                                           |                 |
 | Universes            | [108.252.255.105](http://108.252.255.105) | 3341            |
 | OuterSpace           | [159.69.87.242](http://159.69.87.242)     | 3001            |
 | jy_record            | [1.34.90.150](http://1.34.90.150)         | 6670            |
