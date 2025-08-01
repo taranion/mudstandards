@@ -11,19 +11,29 @@ There have been several attempts attempts to enable communication between MUDs.
 Now, 3 decades later, it is hard to get the facts right, but I give it a try.
 
 - Intermud 1/**[CD Intermud](cd_intermud)**
+
 - **Intermud 2**<br/>
   Backwards compatible evolution of the CD Intermud
+  
+- **[Circle Intermud](circle_intermud)**<br/>
+
+  The first attempt to bring intermud to the Circle/Diku/Envy/Merc codebase.
+
 - **[Zebedee](zebedee)** (often also called "Intermud 2")<br/>
   Popular especially in Europe, this protocol used UDP messages in a full mesh 
   of MUDs where every was able to provide a list of peers. Still in use today.
+  
 - **[Inter MUD Communications (IMC2)](imc2.md)**<br/>
   This TCP-based protocol uses a centralized router and originates in the 
   Merc/Ency/ROM/Diku World. Still in use today, since a bridge to the I3
   network exists.
+  
 - **[AberChat](aberchat)**<br/>
   A very basic implementation via TCP, making use of a central router. As good
   as dead today.
+  
 - **[InterMer](merentha)** (Merentha Internet Service)<br/>
+
 - **[Intermud3](intermud3)** (I3)<br/>
   A TCP-based protocol with payloads that are complicated to use outside the LPC
   world. Still potentially the largest network remaining today.
@@ -78,3 +88,4 @@ timeline
 | PORTAL         |      ❌      |    ✔    |   ❌    |  ❌   |    ❌     |     ❌     |    ❌     |    ❌     |    ❌     |
 | Paging         |      ❌      |    ❌    |   ✔    |  ✔   |    ❌     |     ❌     |    ❌     |    ❌     |    ❌     |
 
+Relative values for "Default Port" refer to the game port, where players connect via Telnet.
