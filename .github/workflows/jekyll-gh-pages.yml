@@ -33,7 +33,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # Use the Node.js version required by Docusaurus
+          node-version: 18  # Use the Node.js version required by Docusaurus
       - name: Install dependencies
         run: npm install
       - name: Install Mermaid Theme
