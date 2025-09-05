@@ -1,7 +1,7 @@
 ---
 sidebar_label: MMCP
 ---
-# MUD Master Chat Protocol (MSSP)
+# MUD Master Chat Protocol (MMCP)
 
 **Source**: [Mudhalla](https://mudhalla.net/tintin/protocols/mmcp/)
 
@@ -142,5 +142,4 @@ Send by a mud client in snoop mode. The message should be echoed by the receiver
 ## Links
 
 If you want a link added, you can email me at mudclient@gmail.com.
-
 
