@@ -1,14 +1,16 @@
 ---
-sidebar_label: MCCP4 (Option 88)
+sidebar_label: MCCPX (Option 88)
 ---
 # MUD Client Compression Protocol Extensions (MCCPX)
 :::note
+```
 	Draft: draft-rahjiii-MCCPX-04.md
 	Obsoletes: draft-rahjiii-MCCPX-03.txt
 	Published: 9 September 2025
 	Intended Status: Informational
 	Expires: 9 March 2026
 	Authors: Asmodeus, RahjIII
+```
 :::
 MUD Client Compression Protocol Extensions - MCCPX
 ==================================================
