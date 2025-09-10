@@ -564,14 +564,14 @@ IAC WONT MCCPX
 Asmodeus, Mfontani, Morwen, RahjIII, Vadi
 
 ## Index
-- [ALTMAN] - <https://datatracker.ietf.org/doc/html/draft-altman-telnet-starttls-02>
-- [DISCORD1] - <https://discord.com/channels/279748146316312576/1393998251786768384>
-- [IANA1] - <https://www.iana.org/assignments/http-parameters/http-parameters.xhtml#content-coding>
-- [IANA2] - <https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml>
-- [MCCP2] - <https://tintin.mudhalla.net/protocols/mccp/>
-- [RFC1951] - <https://datatracker.ietf.org/doc/html/rfc1951>
-- [RFC8878] - <https://datatracker.ietf.org/doc/html/rfc8878>
-- [STD8] - <https://datatracker.ietf.org/doc/std8/>
-- [STD97] - <https://datatracker.ietf.org/doc/html/rfc9110>
+- [ALTMAN](https://datatracker.ietf.org/doc/html/draft-altman-telnet-starttls-02)
+- [DISCORD1](https://discord.com/channels/279748146316312576/1393998251786768384)
+- [IANA1](https://www.iana.org/assignments/http-parameters/http-parameters.xhtml#content-coding)
+- [IANA2](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
+- [MCCP2](https://tintin.mudhalla.net/protocols/mccp/)
+- [RFC1951](https://datatracker.ietf.org/doc/html/rfc1951)
+- [RFC8878](https://datatracker.ietf.org/doc/html/rfc8878)
+- [STD8](https://datatracker.ietf.org/doc/std8/)
+- [STD97](https://datatracker.ietf.org/doc/html/rfc9110)
 
 ## Author's Address
