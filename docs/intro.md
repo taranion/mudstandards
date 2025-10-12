@@ -23,3 +23,11 @@ There are other good sites that give an overview over related protocols:
   Collection of links related to MUDs
 - [MUDVault](https://mudvault.org/protocols)
   Good examples for protocols, infos on existing implementations and links to specs.
+
+## Interesting reads
+
+- https://mud.co.uk/richard/DesigningVirtualWorlds.pdf
+- Articles
+  - [Intermud](https://writing-games.com/bridging-virtual-worlds-past-and-future-of-the-intermud-chat-network/)
+  - [MUDVault](https://writing-games.com/mudvault-a-new-way-to-discover-muds/)
+  - [Lociterm](https://writing-games.com/lociterm-mud-client-and-the-legacy-of-the-last-outpost/)

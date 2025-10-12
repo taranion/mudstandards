@@ -9,18 +9,20 @@ sidebar_label: mudstandards.comm
 
 ### mudstandards.comm.channel.definitions
 
-
+This command is sent once when the connection is established. It may be repeated if the channels available to the user change (e.g. by getting access to a new channel while playing).
 
 ````json
-mudstandards.char.channel.definitions {
+mudstandards.comm.channel.definitions {
     {
     	"id": "gtell",
     	"label": "Group Tell",
       	"color": "FF0000"
-	},  {
+	},  
+    {
         "id": "newbie",
         "label": "Newbie",
-        "color": "00FFFF"
+        "color": "00FFFF",
+        "colorANSI": 3
     }
 }
 ````
@@ -31,6 +33,8 @@ mudstandards.char.channel.definitions {
   (*Mandatory*) A human readable name
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for messages in this channel
+- colorANSI
+  (Optional) Value from 0-15 that represents ANSI colors
 
 ### mudstandards.comm.channel.event
 
@@ -59,5 +63,4 @@ mudstandards.comm.channel.event {
   (Mandatory) The message to print
 
   
-
 

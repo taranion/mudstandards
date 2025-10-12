@@ -664,9 +664,15 @@ The attributes for the ``<FRAME>`` tag are:
 
   Specifies that the frame is internal to the current MUD window. The    ALIGN attribute specifies how the frame is docked with the MUD window.     If this attribute is omitted, a floating frame is created (this is the    default).
 
-- ALIGN (LEFT|RIGHT|BOTTOM|TOP)
+- ALIGN (LEFT|RIGHT|BOTTOM|TOP|CLIENT)
 
-  The alignment of the frame within the parent MUD window. Default is    Top. This attribute is ignored unless the INTERNAL attribute is    specified.
+  The alignment of the frame within the parent MUD window. Default is    Top. This attribute is ignored unless the INTERNAL attribute is specified.
+  Note: The "client" alignment type is used to put multiple frames into a tab together ([Source](http://forums.zuggsoft.com/forums/viewtopic.php?p=134023))
+
+  ```xml
+  <FRAME action="open" name="test1" internal align="top">
+  <FRAME action="open" name="test2" align="client" dock="test1">
+  ```
 
 - LEFT
 
@@ -691,34 +697,38 @@ The attributes for the ``<FRAME>`` tag are:
 - FLOATING
 
   Forces the frame to "stay on top" of the main MUD window.     Ignored for Internal windows.
+  
+- PERSISTENT
+
+  The idea behind the "persistent" option is that  existing windows/frames are not changed in size or position.  So the  specified top/left/width/height attributes only take effect when  creating a *new* frame. ([Source](http://forums.zuggsoft.com/forums/viewtopic.php?p=134023))
 
 Some examples:
 
-```
+```xml
 <FRAME Name="Status" Height="2c">
 ```
 
 Creates a two-line high status window.
 
-```
+```xml
 <FRAME Name="Map" Left="-20c" Top="0" Width="20c" Height="20c">
 ```
 
 Creates a frame in the upper-right corner of the screen 20 characters wide by 20 characters high.
 
-```
+```xml
 <FRAME Name="Tells" INTERNAL Align="top">
 ```
 
 Creates a new window called Tells docked to the top of the current MUD window. You cannot control the size of docked windows, as it is client implementation specific.
 
-```
+```xml
 <FRAME Tells REDIRECT>
 ```
 
 Start redirecting all output to the Tells window
 
-```
+```xml
 <FRAME _previous REDIRECT>
 ```
 
@@ -726,7 +736,7 @@ Redirect all MUD output to the previous window.
 
 You can also send text to a frame using the ``<DESTINATION>`` tag (or ``<DEST>`` for short). For example, to send a status message to the Status frame, you would use:
 
-```
+```xml
 <DEST Status>This text is sent to the status window</DEST>
 ```
 
