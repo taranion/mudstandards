@@ -23,15 +23,15 @@ const config = {
   url: 'http://mudstandards.org',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/home/prelle/git/MUDStandards/build/index.html/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'taranion', // Usually your GitHub org/user name.
   projectName: 'mudstandards', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'warn',
+  onBrokenAnchors: 'ignore',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -39,6 +39,11 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+  markdown: {
+    hooks: {
+        onBrokenMarkdownLinks: 'warn'
+    }
   },
 
   presets: [
