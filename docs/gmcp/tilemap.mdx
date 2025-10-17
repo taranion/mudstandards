@@ -62,7 +62,8 @@ tilemap.area {
         "tilesets": {
             "terrain": "0",
             "monster": "128"
-        }
+        },
+        frame: "world"
     },
     "Surrounding": {
         "map-size": "11x11",
@@ -77,6 +78,14 @@ tilemap.area {
 ```
 
 For each defined area, there is a **map-size**, telling the client how many tiles wide and high the area will be - and an **encoding** to tell the client how many hexadecimal digits each tile number will have. Valid values are **Hex_8**, **Hex_16** and **Hex_24** for 8, 16 or 24 bit / resp. 1,2 or 3 digits.
+
+**encoding** - Encoding format of the content data (the 012345... part between the tags) encoding has multiple possibilities to make it easy to use or as compact as possible:
+
+- Hex_4 - Hexadecimal with 4 bits per tile (16 tiles possible). In this format a single hex character is a single tile. ** The tilemap tag at the start of this document uses hex_4 encoding
+- Hex_8 - Two hex digits (256 tiles possible)
+- Hex_16 - Four hex digits (2 bytes) per tile (65536 tiles possible)
+
+**frame** -(string) (optional) - If by some other means windows or frames have been defined,  this optional parameter can be used to refer to a frame where this map shall be displayed in. In such a case, it usually replaces all existing content in that frame.
 
 To prepare the interpretation of the tile number, the **tilesets** element tells the client, from which tileset a tile must be taken. E.g. in the "Surrounding" example above, a tile number of 160 would be the 32. tile in the "objects" tileset.
 
