@@ -1,11 +1,9 @@
 ---
-sidebar_label: mudstandards.room
+sidebar_label: mudstandards.window
 ---
 # The ``mudstandards.window`` package
 
-# mudstandards.window.open
-
-**Title:** mudstandards.window.open
+## mudstandards.window.open
 
 |                           |             |
 | ------------------------- | ----------- |
@@ -27,7 +25,7 @@ sidebar_label: mudstandards.room
 | - [content](#content )     | enum (of string) | **Optional**: What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
 | - [url](#url )             | url              | **Mandatory**: In case of a \`webview\` content, this contains the URL to open                                                                                                                   |
 
-## <a name="id"></a>1. Property `id`
+#### <a name="id"></a>1. Property `id`
 
 |              |          |
 | ------------ | -------- |
@@ -36,7 +34,7 @@ sidebar_label: mudstandards.room
 
 **Description:** **Mandatory**: A unique identifier for the room.
 
-## <a name="title"></a>2. Property `title`
+### <a name="title"></a>2. Property `title`
 
 |              |          |
 | ------------ | -------- |
@@ -45,7 +43,7 @@ sidebar_label: mudstandards.room
 
 **Description:** **Optional**: The name to appear above the window. Without it, no space should be reserved
 
-## <a name="type"></a>3. Property `type`
+### <a name="type"></a>3. Property `type`
 
 |              |                    |
 | ------------ | ------------------ |
@@ -60,7 +58,7 @@ Must be one of:
 * "child"
 * "tab"
 
-## <a name="parent"></a>4. Property `parent`
+### <a name="parent"></a>4. Property `parent`
 
 |              |          |
 | ------------ | -------- |
@@ -69,7 +67,7 @@ Must be one of:
 
 **Description:** **Optional**: For windows of type 'child', the parent frame they belong to. For windows of type 'tab', the reference frame to alternate with.
 
-## <a name="align"></a>5. Property `align`
+### <a name="align"></a>5. Property `align`
 
 |              |                    |
 | ------------ | ------------------ |
@@ -84,7 +82,7 @@ Must be one of:
 * "left"
 * "right"
 
-## <a name="sizeValue"></a>6. Property `sizeValue`
+### <a name="sizeValue"></a>6. Property `sizeValue`
 
 |              |           |
 | ------------ | --------- |
@@ -97,7 +95,7 @@ Must be one of:
 | ------------ | ------ |
 | **Minimum**  | &ge; 1 |
 
-## <a name="sizeUnit"></a>7. Property `sizeUnit`
+### <a name="sizeUnit"></a>7. Property `sizeUnit`
 
 |              |                    |
 | ------------ | ------------------ |
@@ -112,7 +110,7 @@ Must be one of:
 * "px"
 * "%"
 
-## <a name="content"></a>8. Property `content`
+### <a name="content"></a>8. Property `content`
 
 |              |                    |
 | ------------ | ------------------ |
@@ -127,7 +125,7 @@ Must be one of:
 * "terminal"
 * "webview"
 
-## <a name="url"></a>9. Property `url`
+### <a name="url"></a>9. Property `url`
 
 |              |       |
 | ------------ | ----- |
@@ -136,5 +134,7 @@ Must be one of:
 
 **Description:** **Mandatory**: In case of a `webview` content, this contains the URL to open
 
-----------------------------------------------------------------------------------------------------------------------------
-Generated using [json-schema-for-humans](https://github.com/coveooss/json-schema-for-humans) on 2025-11-22 at 20:55:08 +0100
+
+## mudstandards.window.close (TODO)
+
+
