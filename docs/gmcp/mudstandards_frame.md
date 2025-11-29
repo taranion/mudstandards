@@ -177,7 +177,7 @@ These commands are sent by the client when the frame setup changed
 ### mudstandards.frame.opened
 This event is sent when the client opens or reopens a frame. It is meant to provide the server with size information about the frame.
 ````json
-mudstandards.frame.openend { 
+mudstandards.frame.opened { 
     "id":   "topleft",
     "sizeChar" :  <size object for character width/height>,
     "sizePixel":  <size object for pixel width/height>    
@@ -200,7 +200,7 @@ mudstandards.frame.closed {
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
 | id             | string  | **Mandatory** |  The identifier of the area that has been closed |
-| reason       | ["system"|"user"]  | **Optional** |  Inform why the closing happened - "user" means by user request   |
+| reason       | [system|user]  | **Optional** |  Inform why the closing happened - "user" means by user request   |
 
 ### mudstandards.frame.resized
 This event is sent whenever the frame size changes that much that a new character width or height is available. It is advised that 
@@ -215,5 +215,5 @@ mudstandards.frame.resized {
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
 | id             | string  | **Mandatory** |  The identifier of the area that has been resized |
-| sizeChar       | size object  | **Mandatory** |  The size of the area in character width and height      |
-| sizePixel      | size object  | **Optional** |  The inner size for content measured in pixel. If the client does scaling, the effective size after scaling should be used. |
+| sizeChar       | [size object](#size )  | **Mandatory** |  The size of the area in character width and height      |
+| sizePixel      | [size object](#size )  | **Optional** |  The inner size for content measured in pixel. If the client does scaling, the effective size after scaling should be used. |
