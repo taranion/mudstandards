@@ -7,7 +7,7 @@ This GMCP package intends to let a MUD server open/close "*frames*" at the clien
 
 ## Definitions
 
-### Frame types
+### <a name="ftype"></a>Frame types
 A frame can be one of the following types
 * **External**
   An external frame is a window outside the main area of the client. Opening an external area should not change the size of the main client area.
@@ -20,7 +20,7 @@ A frame can be one of the following types
 * **Tab**
   This is a sibling area to another area. This area is to be displayed as an alternative to the sibling area, visualized as a Tab
 
-### Frame content types
+### <a name="ctype"></a>Frame content types
 There are three kinds of window content an area can have
 * **Terminal**
   Comparable to the main area of the client, this area can display ANSI text content
@@ -39,8 +39,12 @@ It is likely that clients do not support all area and content types. Upon connec
     "height" : <number>
 }
 ````
+| Property   | Type     | Required | Description                        |
+| ---------- | -------- | -------- | ---------------------------------|
+| width      | <number> | **Mandatory**|  Width of usable area |
+| height     | <number> | **Mandatory**|  Height of usable area |
 
-### The decoration object
+### <a name="details"></a>The details object
 ````json 
 {
     "background": "<url>",
@@ -51,6 +55,13 @@ It is likely that clients do not support all area and content types. Upon connec
     "opacity": <0..100>
 }
 ````
+| Property   | Type     | Required | Description                        |
+| ---------- | -------- | -------- | ---------------------------------|
+| background | <string> | **Optional**|  Download URL of a background image |
+| opacity    | <number> | **Optional**|  Opacity percentage of the frame background (incl. eventual image) |
+| scrolling  | <string> | **Optional**|  Will this frame scroll and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
+| resizeable | <string> | **Optional**|  Can the user resize the frame and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
+| closeable  | <boolean> | **Optional**|  Can the user resize close the frame? |
 
 ## Commands
 
@@ -59,8 +70,8 @@ Sent by the client to notify the server of its capabilities. Should be send unso
 
 ````json
 mudstandards.frame.support {
-    "type": ["external","docked"], 
-    "content": ["terminal","image"]
+    "type": List of <frame type>, 
+    "content": List of <content type>
 }
 ````
 
@@ -76,8 +87,15 @@ This message opens a new frame/window/dock in the client
 
 ````json
 mudstandards.frame.open {
-    "type": ["external","docked"], 
-    "content": ["terminal","image"]
+    "id"  : <string>,
+    "type": <frame type>, 
+    "content": <content type>,
+    "align": [top|bottom|left|right],
+    "label": <string>,
+    "parent": <string>,
+    "sizeValue": <string>,
+    "sizeUnit": <string>,
+    "url" : <string>
 }
 ````
 
@@ -91,7 +109,8 @@ mudstandards.frame.open {
 | sizeValue   | integer          | **Conditional**|  Size of the new window. Consult *sizeUnit* for meaning                                                                                                                          |
 | sizeUnit    | [c\|px\|%] | **Optional**|  Is the size to be interpreted as characters(c), pixel(px) or percent(%)                                                                                                            |
 | content     | [terminal\|webview] | **Optional**|  What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
-| url          | url              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
+| url          | string              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
+| details     | [details object](#details )              | **Optional**|  Configuration details for the new frame. There is no guarantee that the client implements a specific detail.                                                                                                               |
 
 ### mudstandards.frame.close
 Sent from the server to request the closing of a frame.
