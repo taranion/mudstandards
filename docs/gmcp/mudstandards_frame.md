@@ -41,8 +41,8 @@ It is likely that clients do not support all area and content types. Upon connec
 ````
 | Property   | Type     | Required | Description                        |
 | ---------- | -------- | -------- | ---------------------------------|
-| width      | <number> | **Mandatory**|  Width of usable area |
-| height     | <number> | **Mandatory**|  Height of usable area |
+| width      | integer | **Mandatory**|  Width of usable area |
+| height     | integer | **Mandatory**|  Height of usable area |
 
 ### <a name="details"></a>The details object
 ````json 
@@ -57,11 +57,11 @@ It is likely that clients do not support all area and content types. Upon connec
 ````
 | Property   | Type     | Required | Description                        |
 | ---------- | -------- | -------- | ---------------------------------|
-| background | <string> | **Optional**|  Download URL of a background image |
-| opacity    | <number> | **Optional**|  Opacity percentage of the frame background (incl. eventual image) |
-| scrolling  | <string> | **Optional**|  Will this frame scroll and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
-| resizeable | <string> | **Optional**|  Can the user resize the frame and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
-| closeable  | <boolean> | **Optional**|  Can the user resize close the frame? |
+| background | string   | **Optional**|  Download URL of a background image |
+| opacity    | integer  | **Optional**|  Opacity percentage of the frame background (incl. eventual image) |
+| scrolling  | string  | **Optional**|  Will this frame scroll and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
+| resizeable | string  | **Optional**|  Can the user resize the frame and if so, on which axis? <br/>**Options:** [none,X,Y,both] |
+| closeable  | boolean | **Optional**|  Can the user resize close the frame? |
 
 ## Commands
 
