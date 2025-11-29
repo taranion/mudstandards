@@ -200,7 +200,7 @@ mudstandards.frame.closed {
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
 | id             | string  | **Mandatory** |  The identifier of the area that has been closed |
-| reason       | [system\|user]  | **Optional** |  Inform why the closing happened - "user" means by user request   |
+| reason         | [system\|user] | **Optional** |  Inform why the closing happened - "user" means by user request   |
 
 ### mudstandards.frame.resized
 This event is sent whenever the frame size changes that much that a new character width or height is available. It is advised that 
