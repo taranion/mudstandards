@@ -32,7 +32,7 @@ There are three kinds of window content an area can have
 ### Negotiating support
 It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstandards.area.support`` command.
 
-### a name="size"></a>The size object
+### <a name="size"></a>The size object
 ````json 
 {
     "width"  : <number>,
