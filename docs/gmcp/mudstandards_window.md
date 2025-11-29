@@ -1,140 +1,149 @@
 ---
-sidebar_label: mudstandards.window
+sidebar_label: mudstandards.frame
 ---
-# The ``mudstandards.window`` package
+# The ``mudstandards.frame`` package
 
-## mudstandards.window.open
+This GMCP package intends to let a MUD server open/close "*frames*" at the client and either direct output to it or open a webview with a given URL.
 
-|                           |             |
-| ------------------------- | ----------- |
-| **Type**                  | `combining` |
-| **Required**              | No          |
-| **Additional properties** | Not allowed |
+## Definitions
 
-**Description:** This message opens a new frame/window/dock in the client
+### Frame types
+A frame can be one of the following types
+* **External**
+  An external frame is a window outside the main area of the client. Opening an external area should not change the size of the main client area.
+* **Docked**
+  A docked frame is a window that is docked to a border of the main area and reduces the effective size of the main area.
+* **Floating**
+  This is a window that is floating internally above the main area.
+* **Child**
+  This is a nested area inside another that is split off from the parent
+* **Tab**
+  This is a sibling area to another area. This area is to be displayed as an alternative to the sibling area, visualized as a Tab
 
-| Property                   | Type             | Title/Description                                                                                                                                                                                |
-| -------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| + [id](#id )               | string           | **Mandatory**: A unique identifier for the room.                                                                                                                                                 |
-| - [title](#title )         | string           | **Optional**: The name to appear above the window. Without it, no space should be reserved                                                                                                       |
-| + [type](#type )           | enum (of string) | **Mandatory**: How will this frame be handled: An external (moveable) window, a docked frame or a  child frame of another window or a tab, that can be displayed alternatively to the 'parent'   |
-| - [parent](#parent )       | string           | **Optional**: For windows of type 'child', the parent frame they belong to. For windows of type 'tab', the reference frame to alternate with.                                                    |
-| + [align](#align )         | enum (of string) | **Conditional**: On which side of the reference window shall this window appear                                                                                                                  |
-| + [sizeValue](#sizeValue ) | integer          | **Conditional**: Size of the new window. Consult 'sizeUnit' for meaning                                                                                                                          |
-| - [sizeUnit](#sizeUnit )   | enum (of string) | **Optional**: Is the size to be interpreted as characters(c), pixel(px) or percent(%)                                                                                                            |
-| - [content](#content )     | enum (of string) | **Optional**: What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
-| - [url](#url )             | url              | **Mandatory**: In case of a \`webview\` content, this contains the URL to open                                                                                                                   |
+### Frame content types
+There are three kinds of window content an area can have
+* **Terminal**
+  Comparable to the main area of the client, this area can display ANSI text content
+* **WebView**
+  This area can be given an URL of a HTML+Javascript page. The client must expose a Javascript object to send and subscribe to GMCP commands (see TODO)
+* **Image**
+  The only content of the area is a single image, which of course can be updated.  
 
-#### <a name="id"></a>1. Property `id`
+### Negotiating support
+It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstandards.area.support`` command.
 
-|              |          |
-| ------------ | -------- |
-| **Type**     | `string` |
-| **Required** | Yes      |
+### The decoration object
+````json 
+{
+    "background": "<url>",
+    "scrolling" : <value>  none, X, Y, both,
+    "closeable" : <boolean>,
+    "resizeable": <enum>   none, X, Y, both,
+    "label" : <string>,
+    "opacity": <0..100>
+}
+````
 
-**Description:** **Mandatory**: A unique identifier for the room.
+## mudstandards.frame.support
+Sent by the client to notify the server of its capabilities. Should be send unsolicited after establishing the connection or as a response to a ``mudstandards.window.query``
 
-### <a name="title"></a>2. Property `title`
+````json
+mudstandards.frame.support {
+    "type": ["external","docked"], 
+    "content": ["terminal","image"]
+}
+````
 
-|              |          |
-| ------------ | -------- |
-| **Type**     | `string` |
-| **Required** | No       |
-
-**Description:** **Optional**: The name to appear above the window. Without it, no space should be reserved
-
-### <a name="type"></a>3. Property `type`
-
-|              |                    |
-| ------------ | ------------------ |
-| **Type**     | `enum (of string)` |
-| **Required** | Yes                |
-
-**Description:** **Mandatory**: How will this frame be handled: An external (moveable) window, a docked frame or a  child frame of another window or a tab, that can be displayed alternatively to the 'parent'
-
-Must be one of:
-* "external"
-* "docked"
-* "child"
-* "tab"
-
-### <a name="parent"></a>4. Property `parent`
-
-|              |          |
-| ------------ | -------- |
-| **Type**     | `string` |
-| **Required** | No       |
-
-**Description:** **Optional**: For windows of type 'child', the parent frame they belong to. For windows of type 'tab', the reference frame to alternate with.
-
-### <a name="align"></a>5. Property `align`
-
-|              |                    |
-| ------------ | ------------------ |
-| **Type**     | `enum (of string)` |
-| **Required** | Yes                |
-
-**Description:** **Conditional**: On which side of the reference window shall this window appear
-
-Must be one of:
-* "top"
-* "bottom"
-* "left"
-* "right"
-
-### <a name="sizeValue"></a>6. Property `sizeValue`
-
-|              |           |
-| ------------ | --------- |
-| **Type**     | `integer` |
-| **Required** | Yes       |
-
-**Description:** **Conditional**: Size of the new window. Consult 'sizeUnit' for meaning
-
-| Restrictions |        |
-| ------------ | ------ |
-| **Minimum**  | &ge; 1 |
-
-### <a name="sizeUnit"></a>7. Property `sizeUnit`
-
-|              |                    |
-| ------------ | ------------------ |
-| **Type**     | `enum (of string)` |
-| **Required** | No                 |
-| **Default**  | `"px"`             |
-
-**Description:** **Optional**: Is the size to be interpreted as characters(c), pixel(px) or percent(%)
-
-Must be one of:
-* "c"
-* "px"
-* "%"
-
-### <a name="content"></a>8. Property `content`
-
-|              |                    |
-| ------------ | ------------------ |
-| **Type**     | `enum (of string)` |
-| **Required** | No                 |
-| **Default**  | `"terminal"`       |
-
-**Description:** **Optional**: What type of content should be displayed in that frame? 
-`content="terminal"` is another terminal emulator, while `content="webview"` is an HTML webpage with Javascript.
-
-Must be one of:
-* "terminal"
-* "webview"
-
-### <a name="url"></a>9. Property `url`
-
-|              |       |
-| ------------ | ----- |
-| **Type**     | `url` |
-| **Required** | No    |
-
-**Description:** **Mandatory**: In case of a `webview` content, this contains the URL to open
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| type            | List of [external\|docked\|floating\|child\|tab] | **Mandatory**|  Supported area types|
+| content     | List of [terminal\|webview\|image] | **Mandatory**|  Supported area content types |
 
 
-## mudstandards.window.close (TODO)
+## mudstandards.frame.open
 
+This message opens a new frame/window/dock in the client
+
+````json
+mudstandards.frame.open {
+    "type": ["external","docked"], 
+    "content": ["terminal","image"]
+}
+````
+
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id             | string           | **Mandatory**|  A unique identifier for the room.                                                                                                                                                 |
+| label          | string           | **Optional**| The name to appear above the window. Without it, no space for a label should be reserved                                                                                                       |
+| type            | [external\|docked\|floating\|child\|tab] | **Mandatory**|  How will this frame be handled: An external (moveable) window, a docked frame or a  child frame of another window or a tab, that can be displayed alternatively to the *parent*|
+| parent       | string           | **Optional**|  For windows of type *child*, the parent frame they belong to. For windows of type *tab*, the reference frame to alternate with.                                                    |
+| align       | [top\|bottom\|left\|right] | **Conditional**|  On which side of the reference window shall this window appear                                                                                                                  |
+| sizeValue   | integer          | **Conditional**|  Size of the new window. Consult *sizeUnit* for meaning                                                                                                                          |
+| sizeUnit    | [c\|px\|%] | **Optional**|  Is the size to be interpreted as characters(c), pixel(px) or percent(%)                                                                                                            |
+| content     | [terminal\|webview] | **Optional**|  What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
+| url          | url              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
+
+## mudstandards.frame.close (TODO)
+Sent from the server to request the closing of a frame.
+
+````json
+mudstandards.window.close { 
+    "window":   "topleft"
+}
+````
+
+
+## mudstandards.frame.terminal
+
+This commands writes ANSI content to a given window/frame of type `terminal`.
+
+````json
+mudstandards.frame.terminal { 
+    "window":   "stats",
+    "clear" :   true,
+    "ansi" :    "\x1b[0;1;37mSTR:\X1b[0m 12"    
+}
+mudstandards.frame.terminal { 
+    "window":   "channel",
+    "ansi" :   "\x1b[0;1;37mFoo says, 'Bar!'\x1b[0m"}"    
+}
+````
+
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| window         | string  | **Mandatory** |  The identifier of the area to output the content |
+| ansi           | string  | **Mandatory** |  The UTF-8 encoded content (with potential ANSI codes) to output      |
+| clear          | boolean  | **Optional** |  If `true`, the window should be cleared before the output    |
+
+
+## mudstandards.frame.image
+
+This commands updates an image to a given window/frame of type `image`. The image can be given as an URL or as a Base64 encoded inline image.
+
+````json
+mudstandards.window.image { 
+    "window":   "topleft",
+    "image" :   "base64:<base64data>"    
+}
+mudstandards.window.image { 
+    "window":   "topleft",
+    "image" :   "http://myserver.com/portrait.png"    
+}
+````
+
+### Parameter
+
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| window         | string  | **Mandatory** |  The identifier of the area to output the content |
+| image          | string  | **Mandatory** |  URI - either an image irl or base 64 encoded data with a `base64` schema        |
+
+
+## Events
+
+These commands are sent by the client when the frame setup changed
+
+### mudstandards.frame.opened
+### mudstandards.frame.closed
+### mudstandards.frame.resized
 

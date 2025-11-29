@@ -1,15 +1,17 @@
 ---
-sidebar_label: mudstandards.comm
+sidebar_label: mudstandards.channel
 ---
-# The ``mudstandards.comm`` package
+# The ``mudstandards.channel`` package
 
-## Channels
+The purpose of this package is to send messages that are associated with specific communication channels a MUD server may provide.
+All messages are encoded as UTF-8. Message content MUST be provided in a version without any control codes, but MAY additionally by provided with ANSI codes.
+Channels can optionally have a assignment for a default color, but those can be overwridden using control ANSI codes in the messages.
 
-
-
-### mudstandards.comm.channel.definitions
+## mudstandards.channel.definitions
 
 This command is sent once when the connection is established. It may be repeated if the channels available to the user change (e.g. by getting access to a new channel while playing).
+
+### Example
 
 ````json
 mudstandards.comm.channel.definitions {
@@ -26,20 +28,20 @@ mudstandards.comm.channel.definitions {
     }
 }
 ````
+### Parameter
 
-- **id**
-  (*Mandatory*) This identifier is used to refer to this channel when sending messages. It should consist of ASCII letters only.
-- **label**
-  (*Mandatory*) A human readable name
-- **color**
-  (*Optional*) Hexadecimal RGB code of a color to use for messages in this channel
-- colorANSI
-  (Optional) Value from 0-15 that represents ANSI colors
+| Property                 | Type    | Required | Description                                                                          |
+| ------------------------ | ------- | ----- | ----------------------------------------------------------------------------------- |
+| [id](#id )               | string  | **Mandatory** |  A unique internal identifier for the channel - not intended to be displayed |
+| [label](#label )         | string  | **Mandatory** |  The display name (e.g. for tabs, filters ..) of the channel                 |
+| [color](#color )         | string  | **Optional** |  A RGB value for the channel color                                            |
+| [colorANSI](#colorANSI ) | integer | **Optional** |  An ANSI color code from 0..15                                                 |
 
-### mudstandards.comm.channel.event
+## mudstandards.channel.event
 
 Sent from the server when something was written on a channel
 
+### Example
 ```json
 mudstandards.comm.channel.event {
     {
@@ -49,18 +51,13 @@ mudstandards.comm.channel.event {
 	}
 }
 ```
+### Parameter
 
-- **id**
-
-  (*Mandatory*) Channel the message was sent on
-
-- **sender**
-
-  (*Mandatory*) The player who sent the message
-
-- **msg**
-
-  (Mandatory) The message to print
-
-  
+| Property   | Type    | Required | Description                                                                          |
+| ---------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id         | string  | **Mandatory** |  The channel identifier |
+| sender     | string  | **Optional**  |  The name of the sender. UTF-8, no color codes. Can be omitted for system messages.     |
+| msg        | string  | **Mandatory** |  The message content. UTF-8, no color codes              |
+| senderANSI | string  | **Optional**  |  The name of the sender. UTF-8, may contain ANSI codes  |
+| msgANSI    | string  | **Optional**  |  The message content. UTF-8, may contain ANSI codes      |
 

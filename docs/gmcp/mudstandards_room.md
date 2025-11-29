@@ -63,3 +63,24 @@ mudstandards.room.info {
   (*Optional*) A reference to a terrain definition
 - **exits**
   (*Mandatory*) A map of exists, identified by the direction. Each entry consists
+
+### mudstandards.room.entities
+This command sends a list of NPCs/mobiles and items that are in the room (or near surrounding) to interact with.
+
+````json
+mudstandards.room.entities {
+    {
+         "name": "<display name for the entity",
+         "type": "[mobile|item]",
+         "icon_url": "optional url to a small 32x32 pixel image",
+         "actions": [
+            {
+                "name": "<display name of the command>",
+                "command": "<string to send>",
+                "emoji": "<optional emoji to prepend>",
+                "color": "[normal|danger]"
+            }
+        ]
+    }
+}
+````
