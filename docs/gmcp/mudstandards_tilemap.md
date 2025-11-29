@@ -6,6 +6,11 @@ sidebar_label: mudstandards.tilemap
 
 The purpose of this package is to allow MU\* servers to control coordinate based maps. It is inspired from the `beip.tilemap` ([link](https://github.com/BeipDev/BeipMU/blob/master/TileMap.md)) package, but adds features to work with multiple tilesets per map, layering and options to choose tileset resolutions.
 
+## Initial detection (TODO)
+
+Query
+Support   (graphic|ansi)
+
 ## mudstandards.tilemap.tilesets
 
 With this command the server informs the client about all tilesets available and assigns identifiers to reference them in later commands. Tilesets may come in different resolutions - the client is free to pick the one suited best.
@@ -26,7 +31,7 @@ mudstandards.tilemap.tilesets {
         sizeX: 32,
         sizeY: 32,
         anim: {
-			"0": "4",
+            "0": "4",
             "4": "4"
         }
     }
