@@ -32,6 +32,14 @@ There are three kinds of window content an area can have
 ### Negotiating support
 It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstandards.area.support`` command.
 
+### a name="size"></a>The size object
+````json 
+{
+    "width"  : <number>,
+    "height" : <number>
+}
+````
+
 ### The decoration object
 ````json 
 {
@@ -44,7 +52,9 @@ It is likely that clients do not support all area and content types. Upon connec
 }
 ````
 
-## mudstandards.frame.support
+## Commands
+
+### mudstandards.frame.support
 Sent by the client to notify the server of its capabilities. Should be send unsolicited after establishing the connection or as a response to a ``mudstandards.window.query``
 
 ````json
@@ -60,7 +70,7 @@ mudstandards.frame.support {
 | content     | List of [terminal\|webview\|image] | **Mandatory**|  Supported area content types |
 
 
-## mudstandards.frame.open
+### mudstandards.frame.open
 
 This message opens a new frame/window/dock in the client
 
@@ -83,59 +93,61 @@ mudstandards.frame.open {
 | content     | [terminal\|webview] | **Optional**|  What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
 | url          | url              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
 
-## mudstandards.frame.close (TODO)
+### mudstandards.frame.close
 Sent from the server to request the closing of a frame.
 
 ````json
 mudstandards.window.close { 
-    "window":   "topleft"
+    "id":   "topleft"
 }
 ````
 
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id         | string  | **Mandatory** |  The identifier of the area to close |
 
-## mudstandards.frame.terminal
+
+### mudstandards.frame.terminal
 
 This commands writes ANSI content to a given window/frame of type `terminal`.
 
 ````json
 mudstandards.frame.terminal { 
-    "window":   "stats",
+    "id":   "stats",
     "clear" :   true,
     "ansi" :    "\x1b[0;1;37mSTR:\X1b[0m 12"    
 }
 mudstandards.frame.terminal { 
-    "window":   "channel",
+    "id":   "channel",
     "ansi" :   "\x1b[0;1;37mFoo says, 'Bar!'\x1b[0m"}"    
 }
 ````
 
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| window         | string  | **Mandatory** |  The identifier of the area to output the content |
+| id         | string  | **Mandatory** |  The identifier of the area to output the content |
 | ansi           | string  | **Mandatory** |  The UTF-8 encoded content (with potential ANSI codes) to output      |
 | clear          | boolean  | **Optional** |  If `true`, the window should be cleared before the output    |
 
 
-## mudstandards.frame.image
+### mudstandards.frame.image
 
 This commands updates an image to a given window/frame of type `image`. The image can be given as an URL or as a Base64 encoded inline image.
 
 ````json
-mudstandards.window.image { 
-    "window":   "topleft",
+mudstandards.frame.image { 
+    "id":   "topleft",
     "image" :   "base64:<base64data>"    
 }
-mudstandards.window.image { 
-    "window":   "topleft",
+mudstandards.frame.image { 
+    "id":   "topleft",
     "image" :   "http://myserver.com/portrait.png"    
 }
 ````
 
-### Parameter
-
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| window         | string  | **Mandatory** |  The identifier of the area to output the content |
+| id         | string  | **Mandatory** |  The identifier of the area to output the content |
 | image          | string  | **Mandatory** |  URI - either an image irl or base 64 encoded data with a `base64` schema        |
 
 
@@ -144,6 +156,45 @@ mudstandards.window.image {
 These commands are sent by the client when the frame setup changed
 
 ### mudstandards.frame.opened
-### mudstandards.frame.closed
-### mudstandards.frame.resized
+This event is sent when the client opens or reopens a frame. It is meant to provide the server with size information about the frame.
+````json
+mudstandards.frame.openend { 
+    "id":   "topleft",
+    "sizeChar" :  <size object for character width/height>,
+    "sizePixel":  <size object for pixel width/height>    
+}
+````
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id             | string  | **Mandatory** |  The identifier of the area that has been opened |
+| sizeChar       | [size object](#size )  | **Mandatory** |  The size of the area in character width and height      |
+| sizePixel      | [size object](#size )  | **Optional** |  The inner size for content measured in pixel. If the client does scaling, the effective size after scaling should be used. |
 
+### mudstandards.frame.closed
+This event is sent when the client closes a frame - either because a user did so or because the server requested closing the frame.
+````json
+mudstandards.frame.closed { 
+    "id":   "topleft",
+    "reason" :  ["system"|"user"]  
+}
+````
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id             | string  | **Mandatory** |  The identifier of the area that has been closed |
+| reason       | ["system"|"user"]  | **Optional** |  Inform why the closing happened - "user" means by user request   |
+
+### mudstandards.frame.resized
+This event is sent whenever the frame size changes that much that a new character width or height is available. It is advised that 
+the client does not send this events during a resizing operation, but when the resizing is finished. 
+````json
+mudstandards.frame.resized { 
+    "id":   "topleft",
+    "sizeChar" :  <size object for character width/height>,
+    "sizePixel":  <size object for pixel width/height>    
+}
+````
+| Property       | Type    | Required | Description                                                                          |
+| -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
+| id             | string  | **Mandatory** |  The identifier of the area that has been resized |
+| sizeChar       | size object  | **Mandatory** |  The size of the area in character width and height      |
+| sizePixel      | size object  | **Optional** |  The inner size for content measured in pixel. If the client does scaling, the effective size after scaling should be used. |
