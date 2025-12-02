@@ -8,7 +8,7 @@ Being able to connect to a game using a WebSocket instead of a classic Telnet co
 
 ## The Current Situation
 
-Today (2025) he majority of servers and codebases use one of the following approaches how to use a WebSocket:
+Today (2025) the majority of servers and codebases use one of the following approaches how to use a WebSocket:
 
 1. Tunnel the full telnet stream (incl. all options and user data) through the WebSocket. Often just making a local connection to the telnet socket and pass data in both directions. 
 2. Send custom JSON structures to either contain text (game output, user input) or out-of-band (OOB) messages. These JSON structures are often specific to a codebase or even a single game and used to power their custom web clients.
