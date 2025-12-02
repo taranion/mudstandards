@@ -42,7 +42,7 @@ This document suggests the following protocols:
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
 
-## [<a name="json"></a>]The JSON Format
+## <a name="json"></a>The JSON Format
 
 The goal of this format is to express support for a large list of protocols. 
 
