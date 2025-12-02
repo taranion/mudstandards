@@ -37,12 +37,12 @@ This document suggests the following protocols:
 | `terminal.mudstandards.org` | 0 (TEXT)   | TEXT frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain UTF-8 encoded GMCP commands |
 | `extended.mudstandards.org` | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames are considered telnet subnegotiation content, where the first byte is to be interpreted as the telnet option number. <br />This allows transmitting not only GMCP but other Telnet option subnegotiations as well. |
-| `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the [specific JSON payload](json) defined in this document. |
+| `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the [specific JSON payload](#json) defined in this document. |
 | e.g. *myprotocol.mydomain*  | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
 
-## <a href="json"></a>The JSON Format
+## [<a name="json"></a>]The JSON Format
 
 The goal of this format is to express support for a large list of protocols. 
 
