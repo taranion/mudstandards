@@ -1,3 +1,7 @@
+---
+sidebar_label: WebSocket for MUDs
+description: Suggestions how to standardize WebSocket usage for MUDs
+---
 # Using RFC 6455 WebSocket for MUDs
 
 Being able to connect to a game using a WebSocket instead of a classic Telnet connection is a plus for web or mobile clients. But what exactly gets transmitted over the socket to the application layer and how (as a binary or text frame)? 
@@ -33,12 +37,12 @@ This document suggests the following protocols:
 | `terminal.mudstandards.org` | 0 (TEXT)   | TEXT frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain UTF-8 encoded GMCP commands |
 | `extended.mudstandards.org` | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames are considered telnet subnegotiation content, where the first byte is to be interpreted as the telnet option number. <br />This allows transmitting not only GMCP but other Telnet option subnegotiations as well. |
-| `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the specific JSON payload defined in this document. |
+| `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the [specific JSON payload](json) defined in this document. |
 | e.g. *myprotocol.mydomain*  | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
 
-## The JSON Format
+## <a href="json"></a>The JSON Format
 
 The goal of this format is to express support for a large list of protocols. 
 
@@ -83,7 +87,9 @@ The goal of this format is to express support for a large list of protocols.
 }
 ```
 
+## Custom MUD protocols
 
+Servers that already do send their own JSON structure over a websocket today can continue doing so. All they need to do is add a protocol name (e.g. `v1.evennia.com` ) to the protocol header on the client side and only accept incoming connections with that protocol among the list of supported protocols. 
 
 ## MUD WebSocket Extensions
 
