@@ -21,7 +21,11 @@ All approaches have their pros and cons, but the variety prevents writing a gene
 In the opending handshake of a WS connection, the client use optional the `Sec-WebSocket-Protocol` header, to provide a comma-separated list of protocols the client understands.
 
 > ```
-> The |Sec-WebSocket-Protocol| request-header field can be used to indicate what subprotocols (application-level protocols layered over the WebSocket Protocol) are acceptable to the client. The server selects one or none of the acceptable protocols and echoes that value in its handshake to indicate that it has selected that protocol.
+> The |Sec-WebSocket-Protocol| request-header field can be used to indicate what 
+> subprotocols (application-level protocols layered over the WebSocket Protocol) 
+> are acceptable to the client. The server selects one or none of the acceptable
+> protocols and echoes that value in its handshake to indicate that it has 
+> selected that protocol.
 > ```
 
 In the response, when switching to WebSocket communication, the server than sends a `Sec-WebSocket-Protocol` header, with the protocol the server selected - or rejects the connection, if the negotiation fails.
@@ -34,8 +38,8 @@ This document suggests the following protocols:
 | Protocol*                   | OPCODEs    | Description                                                  |
 | --------------------------- | ---------- | ------------------------------------------------------------ |
 | `telnet.mudstandards.org`   | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
-| `terminal.mudstandards.org` | 0 (TEXT)   | TEXT frames contain input/output and ANSI control codes. Encoded as UTF-8 |
-| `gmcp.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain UTF-8 encoded GMCP commands |
+| `terminal.mudstandards.org` | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
+| `gmcp.mudstandards.org`     | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
 | `extended.mudstandards.org` | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames are considered telnet subnegotiation content, where the first byte is to be interpreted as the telnet option number. <br />This allows transmitting not only GMCP but other Telnet option subnegotiations as well. |
 | `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the [specific JSON payload](#json) defined in this document. |
 | e.g. *myprotocol.mydomain*  | ?          | Any codebase custom protocol a client supports               |
