@@ -3,7 +3,9 @@ sidebar_label: char.skills
 ---
 # The ``Char.Skills`` package
 
-Source: https://github.com/keneanung/GMCPAdditions?tab=readme-ov-file#charskills
+:::note
+Source https://nexus.ironrealms.com/GMCP#Char.Skills
+:::
 
 ## Char.Skills.Get 
 
