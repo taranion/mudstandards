@@ -40,8 +40,8 @@ This document suggests the following protocols:
 | `telnet.mudstandards.org`   | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
 | `terminal.mudstandards.org` | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`     | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
-| `extended.mudstandards.org` | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames are considered telnet subnegotiation content, where the first byte is to be interpreted as the telnet option number. <br />This allows transmitting not only GMCP but other Telnet option subnegotiations as well. |
-| `json.mudstandards.org`     | 0 + 1      | TEXT frames do contain regular ANSI in- and output. BINARY frames contain the [specific JSON payload](#json) defined in this document. |
+| `json.mudstandards.org`     | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain the [specific JSON payload](#json) defined in this document. |
+| `divstream.mudstandards.org`| 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
 | e.g. *myprotocol.mydomain*  | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
