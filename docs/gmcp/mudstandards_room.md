@@ -3,15 +3,15 @@ sidebar_label: mudstandards.room
 ---
 # The ``mudstandards.room`` package
 
-### mudstandards.room.terrain.definitions
+### mudstandards.room.terrain
 
 ````json
-mudstandards.room.terrain.definitions {
+mudstandards.room.terrain {
     {
         "id": "city",
         "label": "City",
         "color": "C0C0C0",
-        "tile_url": "data:ABCDEF1234567890"
+        "tile_url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD"
     },  {
         "id": "forest",
         "label": "Forest",
@@ -26,7 +26,7 @@ mudstandards.room.terrain.definitions {
 - **label**
   (*Mandatory*) A human readable name
 - **tile_url**
-  (*Optional*) An URL that points to a small image (suggested 32x32 pixel) that represents the terrain.
+  (*Optional*) An [RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397) URL that points to a small image (suggested 32x32 pixel) that represents the terrain.
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for this terrain
 
