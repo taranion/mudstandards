@@ -5,6 +5,11 @@ sidebar_label: mudstandards.char
 
 ## Resources
 
+:::note
+This duplicates the ``mudstandards.resources`` package, but places it under the ``mudstandards.char`` namespace to group all character related features together.
+I am not sure yet which one is the better approach.
+:::
+
 The term "resources" refers to fast changing energies like Health or Mana.
 
 ### mudstandards.char.resources.definitions
