@@ -5,6 +5,10 @@ sidebar_label: mudstandards.room
 
 ### mudstandards.room.terrain
 
+:::warning
+This is a proposal and request for comments only. 
+:::
+
 ````json
 mudstandards.room.terrain {
     {
@@ -52,9 +56,7 @@ mudstandards.room.info {
 ````
 
 - **id**
-  (*Optional*) An internal identifier that can be non-numeric. The identifier should be serverwide unique.
-- **num**
-  (*Optional*) An internal identifier that is numeric, like a room-number. The number should be serverwide unique.
+  (Mandatory) An internal identifier that can be non-numeric. The identifier should be serverwide unique.
 - **name**
   (*Mandatory*) The name of the room
 - **description**
@@ -62,9 +64,10 @@ mudstandards.room.info {
 - **terrain**
   (*Optional*) A reference to a terrain definition
 - **exits**
-  (*Mandatory*) A map of exists, identified by the direction. Each entry consists
+  (*Mandatory*) A map of exists, identified by the direction. Each entry consists of TODO
 
 ### mudstandards.room.entities
+
 This command sends a list of NPCs/mobiles and items that are in the room (or near surrounding) to interact with.
 
 ````json
