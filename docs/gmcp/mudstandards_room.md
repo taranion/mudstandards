@@ -72,13 +72,13 @@ mudstandards.room.info {
 
 ### mudstandards.room.entities
 
-This command sends a list of NPCs/mobiles and items that are in the room (or near surrounding) to interact with.
+This command sends a list of NPCs/mobiles/players and items that are in the room (or near surrounding) to interact with.
 
 ````json
 mudstandards.room.entities {
     {
          "name": "<display name for the entity",
-         "type": "[mobile|item]",
+         "type": "[mobile|item|player]",
          "icon_url": "optional url to a small 32x32 pixel image",
          "actions": [
             {
@@ -91,3 +91,32 @@ mudstandards.room.entities {
     }
 }
 ````
+
+- **type**
+  (Mandatory) What kind of entity this is. Valid values are `mobile`, `item` and `player`.
+  
+- **name**
+  (*Mandatory*) A short display name for the entity. It should not contain ANSI color codes.
+  
+- **nameANSI**
+  (*Optional*) A short display name for the entity. It may contain ANSI color codes.
+  
+- **icon_url**
+  (*Optional*) Either an HTTP(S) or [RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397) URL that points to a small image (suggested 32x32 pixel) that represents the entity.
+  
+- **actions**
+  (*Optional*) A short list of actions the client may offer to the user to interact with this entity. If the action is selected/clicked, the given command string is sent to the MUD as if the user had typed it. Valid attributes of an action are:
+  
+  - **name** (*Mandatory*)
+    A very short (suggestion: one word olny) display name, e.g. to use for a button below the name, of the action
+  
+  - **command** (*Mandatory*)
+    A command string that the client sends when the action is selected by the user
+  
+  - **emoji** (*Optional*)
+    A emoji that can be prepended to the *name*. Gets an extra attribute, because some clients may not be able to use Emojis.
+  
+  - **color** (Optional)
+    Not a color code, but a way to express potentially aggressive actions (like "kill", "steal"). How exactly a client renders this, is up to the client. Defaults to "normal".
+  
+    
