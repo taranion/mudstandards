@@ -30,7 +30,7 @@ mudstandards.room.terrain {
 - **label**
   (*Mandatory*) A human readable name
 - **tile_url**
-  (*Optional*) An [RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397) URL that points to a small image (suggested 32x32 pixel) that represents the terrain.
+  (*Optional*) An HTTP(S) or [RFC 2397](https://datatracker.ietf.org/doc/html/rfc2397) URL that points to a small image (suggested 32x32 pixel) that represents the terrain.
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for this terrain
 
