@@ -41,14 +41,13 @@ mudstandards.room.terrain {
 mudstandards.room.info {
     {
     	"id": "1/1/12",
-    	"num": "10112",
     	"name": "On a hill",
     	"description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
       	"terrain": "forest",
       	"exits": {
-            "e": {
+            "E": {
                 "id": "1/1/13",
-                "num": "10113",
+                "inverse": "N",
             }
         }
 	}
@@ -62,9 +61,14 @@ mudstandards.room.info {
 - **description**
   (*Optional*) The full room description
 - **terrain**
-  (*Optional*) A reference to a terrain definition
+  (*Optional*) A reference to a terrain definition. See `mudstandards.room.terrain`
 - **exits**
-  (*Mandatory*) A map of exists, identified by the direction. Each entry consists of TODO
+  (*Mandatory*) A map of exists, identified by the direction. Each entry consists of a map of exit object. The abbreviated direction (N,S,E,W,U,D,NE,NW,SE,SW) serves as a key. Valid attributes of an exit are:
+  - **id** (*Mandatory*) 
+    Identifier (possible non-numeric) of the target room.
+  - **inverse** (*Optional*)
+    Direction in which you can return from the target room back to this room. Useful for mappers in maps where exit directions are not simple inverse.
+  
 
 ### mudstandards.room.entities
 
