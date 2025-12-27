@@ -2,12 +2,23 @@
 sidebar_label: ms.room
 ---
 # The ``ms.room`` package
-
-### ms.room.terrain
-
 :::warning
 This is a proposal and request for comments only. 
 :::
+
+Why this package when there is a `room` package already?
+GMCP originally was meant to be used for interactions with a specific game and take only into account the needs of that game.
+Some commands still were generic enough to be used for other games as well and `room.info` did work for a lot games ... but not for all.
+
+* It requires games have numeric room identifiers, which is not the case for everyone.
+* The way how the terrain/environment is declared, varies. Some servers use `terrain` as a field in `room.info`, others use `environment`.
+* The terrain type is just an identifier - a client trying to e.g. use suitable colors or tiles in a mapper, has no way of knowing *how* to represent it.
+* There is no concise definition if and how exists need to be presented. It is often a map abbreviated direction names and a VNum, but some servers decide not to send the VNum and give just a list of directions. In addition to the same numeric identifier problem for some servers, a client can not rely on servers formatting because there is no definition.
+
+So, this package tries to be more precise which parameters are mandatory and which are optional. It also tries to come up with more enhanced features for mappers or other ways to display room content. 
+
+### ms.room.terrain
+Expected to be sent only once - either on connect or at most once per zone/area change.
 
 ````json
 ms.room.terrain {
