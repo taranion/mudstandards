@@ -50,18 +50,16 @@ ms.room.terrain {
 
 ````json
 ms.room.info {
-    {
-    	"id": "1/1/12",
-    	"name": "On a hill",
-    	"description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
-      	"terrain": "forest",
-      	"exits": {
-            "E": {
-                "id": "1/1/13",
-                "inverse": "N",
-            }
+	"id": "1/1/12",
+	"name": "On a hill",
+	"description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
+  	"terrain": "forest",
+  	"exits": {
+        "E": {
+            "id": "1/1/13",
+            "inverse": "N",
         }
-	}
+    }
 }
 ````
 
@@ -74,7 +72,7 @@ ms.room.info {
 - **terrain**
   (*Optional*) A reference to a terrain definition. See `ms.room.terrain`
 - **exits**
-  (*Mandatory*) A map of exists, identified by the direction. Each entry consists of a map of exit object. The abbreviated direction (N,S,E,W,U,D,NE,NW,SE,SW) serves as a key. Valid attributes of an exit are:
+  (*Mandatory*) A map of exists, identified by the direction. Each entry consists of a map of exit object. The direction (mostly N,S,E,W,U,D,NE,NW,SE,SW,IN,OUT but other strings (e.g. "clockwise") might be used as well) serves as a key. Valid attributes of an exit are:
   - **id** (*Mandatory*) 
     Identifier (possible non-numeric) of the target room.
   - **inverse** (*Optional*)
