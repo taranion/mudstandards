@@ -50,11 +50,11 @@ ms.room.terrain {
 
 ````json
 ms.room.info {
-	"id": "1/1/12",
-	"name": "On a hill",
-	"description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
-  	"terrain": "forest",
-  	"exits": {
+    "id": "1/1/12",
+    "name": "On a hill",
+    "description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
+    "terrain": "forest",
+    "exits": {
         "E": {
             "id": "1/1/13",
             "inverse": "N",
@@ -85,19 +85,17 @@ This command sends a list of NPCs/mobiles/players and items that are in the room
 
 ````json
 ms.room.entities {
-    {
-         "name": "<display name for the entity",
-         "type": "[mobile|item|player]",
-         "icon_url": "optional url to a small 32x32 pixel image",
-         "actions": [
-            {
-                "name": "<display name of the command>",
-                "command": "<string to send>",
-                "emoji": "<optional emoji to prepend>",
-                "color": "[normal|danger]"
-            }
-        ]
-    }
+    "name": "<display name for the entity",
+    "type": "[mobile|item|player]",
+    "icon_url": "optional url to a small 32x32 pixel image",
+    "actions": [
+        {
+            "name": "<display name of the command>",
+            "command": "<string to send>",
+            "emoji": "<optional emoji to prepend>",
+            "color": "[normal|danger]"
+        }
+    ]
 }
 ````
 
