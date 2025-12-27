@@ -1,16 +1,16 @@
 ---
-sidebar_label: mudstandards.room
+sidebar_label: ms.room
 ---
-# The ``mudstandards.room`` package
+# The ``ms.room`` package
 
-### mudstandards.room.terrain
+### ms.room.terrain
 
 :::warning
 This is a proposal and request for comments only. 
 :::
 
 ````json
-mudstandards.room.terrain {
+ms.room.terrain {
     {
         "id": "city",
         "label": "City",
@@ -35,10 +35,10 @@ mudstandards.room.terrain {
   (*Optional*) Hexadecimal RGB code of a color to use for this terrain
 
 
-### mudstandards.room.info
+### ms.room.info
 
 ````json
-mudstandards.room.info {
+ms.room.info {
     {
     	"id": "1/1/12",
     	"name": "On a hill",
@@ -61,7 +61,7 @@ mudstandards.room.info {
 - **description**
   (*Optional*) The full room description
 - **terrain**
-  (*Optional*) A reference to a terrain definition. See `mudstandards.room.terrain`
+  (*Optional*) A reference to a terrain definition. See `ms.room.terrain`
 - **exits**
   (*Mandatory*) A map of exists, identified by the direction. Each entry consists of a map of exit object. The abbreviated direction (N,S,E,W,U,D,NE,NW,SE,SW) serves as a key. Valid attributes of an exit are:
   - **id** (*Mandatory*) 
@@ -70,12 +70,12 @@ mudstandards.room.info {
     Direction in which you can return from the target room back to this room. Useful for mappers in maps where exit directions are not simple inverse.
   
 
-### mudstandards.room.entities
+### ms.room.entities
 
 This command sends a list of NPCs/mobiles/players and items that are in the room (or near surrounding) to interact with.
 
 ````json
-mudstandards.room.entities {
+ms.room.entities {
     {
          "name": "<display name for the entity",
          "type": "[mobile|item|player]",

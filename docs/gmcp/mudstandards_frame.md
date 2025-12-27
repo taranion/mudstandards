@@ -1,7 +1,7 @@
 ---
-sidebar_label: mudstandards.frame
+sidebar_label: ms.frame
 ---
-# The ``mudstandards.frame`` package
+# The ``ms.frame`` package
 
 This GMCP package intends to let a MUD server open/close "*frames*" at the client and either direct output to it or open a webview with a given URL.
 
@@ -30,7 +30,7 @@ There are three kinds of window content an area can have
   The only content of the area is a single image, which of course can be updated.  
 
 ### Negotiating support
-It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstandards.area.support`` command.
+It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``ms.area.support`` command.
 
 ### <a name="size"></a>The size object
 ````json 
@@ -65,11 +65,11 @@ It is likely that clients do not support all area and content types. Upon connec
 
 ## Commands
 
-### mudstandards.frame.support
-Sent by the client to notify the server of its capabilities. Should be send unsolicited after establishing the connection or as a response to a ``mudstandards.window.query``
+### ms.frame.support
+Sent by the client to notify the server of its capabilities. Should be send unsolicited after establishing the connection or as a response to a ``ms.window.query``
 
 ````json
-mudstandards.frame.support {
+ms.frame.support {
     "type": List of <frame type>, 
     "content": List of <content type>
 }
@@ -81,12 +81,12 @@ mudstandards.frame.support {
 | content     | List of [terminal\|webview\|image] | **Mandatory**|  Supported area content types |
 
 
-### mudstandards.frame.open
+### ms.frame.open
 
 This message opens a new frame/window/dock in the client
 
 ````json
-mudstandards.frame.open {
+ms.frame.open {
     "id"  : <string>,
     "type": <frame type>, 
     "content": <content type>,
@@ -112,11 +112,11 @@ mudstandards.frame.open {
 | url          | string              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
 | details     | [details object](#details )              | **Optional**|  Configuration details for the new frame. There is no guarantee that the client implements a specific detail.                                                                                                               |
 
-### mudstandards.frame.close
+### ms.frame.close
 Sent from the server to request the closing of a frame.
 
 ````json
-mudstandards.window.close { 
+ms.window.close { 
     "id":   "topleft"
 }
 ````
@@ -126,17 +126,17 @@ mudstandards.window.close {
 | id         | string  | **Mandatory** |  The identifier of the area to close |
 
 
-### mudstandards.frame.terminal
+### ms.frame.terminal
 
 This commands writes ANSI content to a given window/frame of type `terminal`.
 
 ````json
-mudstandards.frame.terminal { 
+ms.frame.terminal { 
     "id":   "stats",
     "clear" :   true,
     "ansi" :    "\x1b[0;1;37mSTR:\X1b[0m 12"    
 }
-mudstandards.frame.terminal { 
+ms.frame.terminal { 
     "id":   "channel",
     "ansi" :   "\x1b[0;1;37mFoo says, 'Bar!'\x1b[0m"}"    
 }
@@ -149,16 +149,16 @@ mudstandards.frame.terminal {
 | clear          | boolean  | **Optional** |  If `true`, the window should be cleared before the output    |
 
 
-### mudstandards.frame.image
+### ms.frame.image
 
 This commands updates an image to a given window/frame of type `image`. The image can be given as an URL or as a Base64 encoded inline image.
 
 ````json
-mudstandards.frame.image { 
+ms.frame.image { 
     "id":   "topleft",
     "image" :   "base64:<base64data>"    
 }
-mudstandards.frame.image { 
+ms.frame.image { 
     "id":   "topleft",
     "image" :   "http://myserver.com/portrait.png"    
 }
@@ -174,10 +174,10 @@ mudstandards.frame.image {
 
 These commands are sent by the client when the frame setup changed
 
-### mudstandards.frame.opened
+### ms.frame.opened
 This event is sent when the client opens or reopens a frame. It is meant to provide the server with size information about the frame.
 ````json
-mudstandards.frame.opened { 
+ms.frame.opened { 
     "id":   "topleft",
     "sizeChar" :  <size object for character width/height>,
     "sizePixel":  <size object for pixel width/height>    
@@ -189,10 +189,10 @@ mudstandards.frame.opened {
 | sizeChar       | [size object](#size )  | **Mandatory** |  The size of the area in character width and height      |
 | sizePixel      | [size object](#size )  | **Optional** |  The inner size for content measured in pixel. If the client does scaling, the effective size after scaling should be used. |
 
-### mudstandards.frame.closed
+### ms.frame.closed
 This event is sent when the client closes a frame - either because a user did so or because the server requested closing the frame.
 ````json
-mudstandards.frame.closed { 
+ms.frame.closed { 
     "id":   "topleft",
     "reason" :  ["system"|"user"]  
 }
@@ -202,11 +202,11 @@ mudstandards.frame.closed {
 | id             | string  | **Mandatory** |  The identifier of the area that has been closed |
 | reason         | [system\|user] | **Optional** |  Inform why the closing happened - "user" means by user request   |
 
-### mudstandards.frame.resized
+### ms.frame.resized
 This event is sent whenever the frame size changes that much that a new character width or height is available. It is advised that 
 the client does not send this events during a resizing operation, but when the resizing is finished. 
 ````json
-mudstandards.frame.resized { 
+ms.frame.resized { 
     "id":   "topleft",
     "sizeChar" :  <size object for character width/height>,
     "sizePixel":  <size object for pixel width/height>    

@@ -1,23 +1,23 @@
 ---
-sidebar_label: mudstandards.char
+sidebar_label: ms.char
 ---
-# The ``mudstandards.char`` package
+# The ``ms.char`` package
 
 ## Resources
 
 :::note
-This duplicates the ``mudstandards.resources`` package, but places it under the ``mudstandards.char`` namespace to group all character related features together.
+This duplicates the ``ms.resources`` package, but places it under the ``ms.char`` namespace to group all character related features together.
 I am not sure yet which one is the better approach.
 :::
 
 The term "resources" refers to fast changing energies like Health or Mana.
 
-### mudstandards.char.resources.definitions
+### ms.char.resources.definitions
 
 Sent by the server to inform the client of all resources tracked on the MUD. The server may send more resources as those that apply to the character, e.g. because class specific resources exist.
 
 ````json
-mudstandards.char.resources.definitions {
+ms.char.resources.definitions {
     {
     	"id": "hp",
     	"label": "Hit Points",
@@ -41,12 +41,12 @@ mudstandards.char.resources.definitions {
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for this resource
 
-### mudstandards.char.resources.update
+### ms.char.resources.update
 
 This command is sent from the server to the client to inform of the current state of the characters resources. Servers may send this in a fixed interval or only when resources are changing
 
 ```json
-mudstandards.char.resources.update {
+ms.char.resources.update {
     {
     	"id": "hp",
     	"current": "15",
@@ -83,10 +83,10 @@ mudstandards.char.resources.update {
 
 ## Attributes
 
-### mudstandards.char.attributes.definitions
+### ms.char.attributes.definitions
 
 ```json
-mudstandards.char.attributes.definitions {
+ms.char.attributes.definitions {
     {
     	"id": "str",
     	"label": "Strength",
@@ -100,12 +100,12 @@ mudstandards.char.attributes.definitions {
 }
 ```
 
-### mudstandards.char.attributes.update
+### ms.char.attributes.update
 
 This command is sent from the server to the client to inform of the current state of the characters attributes. 
 
 ```json
-mudstandards.char.attributes.update {
+ms.char.attributes.update {
     {
     	"id": "str",
     	"current": "8",

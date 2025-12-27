@@ -1,8 +1,8 @@
 ---
-sidebar_label: mudstandards.tilemap
+sidebar_label: ms.tilemap
 ---
 
-# The 'mudstandards.tilemap' package
+# The 'ms.tilemap' package
 
 The purpose of this package is to allow MU\* servers to control coordinate based maps. It is inspired from the `beip.tilemap` ([link](https://github.com/BeipDev/BeipMU/blob/master/TileMap.md)) package, but adds features to work with multiple tilesets per map, layering and options to choose tileset resolutions.
 
@@ -11,12 +11,12 @@ The purpose of this package is to allow MU\* servers to control coordinate based
 Query
 Support   (graphic|ansi)
 
-## mudstandards.tilemap.tilesets
+## ms.tilemap.tilesets
 
 With this command the server informs the client about all tilesets available and assigns identifiers to reference them in later commands. Tilesets may come in different resolutions - the client is free to pick the one suited best.
 
 ```json
-mudstandards.tilemap.tilesets {
+ms.tilemap.tilesets {
     "terrain": {
     	url: "http://.../SmallTiles.png",
         sizeX: 32,
@@ -60,7 +60,7 @@ Each tileset is named and the name is later used to reference it from other comm
 This command tells the client to prepare one or more areas that should show tilemaps. Each area can make use of all tilesets that have been uploaded by `tilemap.tilesets` before. If the tilesets are provided in multiple resolutions, it is up to the client to pick the one used - e.g. because the user chooses a resolution or because of the screen size.
 
 ```json
-mudstandards.tilemap.area {
+ms.tilemap.area {
     "World Map": {
         "map-size": "21x21",
         "encoding": "Hex_8",
@@ -99,7 +99,7 @@ To prepare the interpretation of the tile number, the **tilesets** element tells
 This command will be send for each update in the map. The identifier tells *which* area is updated. For each area there are one or more layers given. Drawing should start with the layer with the lowest number and then processed ascending. For each layer, there are all tile numbers for the whole map expected. E.g. if a map is 11x11 tiles large and have a HEX_24 encoding, each layer must contain 11x11x3 = 363 hexadecimal digits.
 
 ```json
-mudstandards.tilemap.data {
+ms.tilemap.data {
 	"Surrounding": {
 		"0": "<string of layer data, depending on encoding",
 		"1": "<string of layer data, depending on encoding"
