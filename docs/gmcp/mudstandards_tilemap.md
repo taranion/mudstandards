@@ -35,9 +35,9 @@ mudstandards.tilemap.tilesets {
     }
 }
 ```
+The client can load all those tilesets, segment them according to the tile size and cache them for later use.
 
-Sporadic (usually once per area change) definition how to map tile numbers to tilesets.
-
+Sporadic (usually once per area change) definition how to map tile numbers to tilesets and the map dimensions.
 ```json
 mudstandards.tilemap.info {
     "tileWidth":32,
@@ -55,7 +55,7 @@ mudstandards.tilemap.info {
 Tiles from 1-256 are taken from the "terrain" tileset, tiles from 257-512 from the "immobiles" tileset, etc.
 The map area is 11 tiles wide and 11 tiles high, each tile is 32x32 pixels - so the total map size is 352x352 pixels.
 
-Example of a layered map.
+Example of a layered map:
 ```json
 mudstandards.tilemap.update {
     "data":[
