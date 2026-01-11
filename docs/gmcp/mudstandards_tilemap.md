@@ -53,6 +53,7 @@ mudstandards.tilemap.info {
 }
 ```
 Tiles from 1-256 are taken from the "terrain" tileset, tiles from 257-512 from the "immobiles" tileset, etc.
+The map area is 11 tiles wide and 11 tiles high, each tile is 32x32 pixels - so the total map size is 352x352 pixels.
 
 Example of a layered map.
 ```json
