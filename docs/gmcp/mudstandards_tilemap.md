@@ -1,22 +1,105 @@
 ---
-sidebar_label: ms.tilemap
+sidebar_label: mudstandards.tilemap
 ---
 
-# The 'ms.tilemap' package
+# The 'mudstandards.tilemap' package
 
 The purpose of this package is to allow MU\* servers to control coordinate based maps. It is inspired from the `beip.tilemap` ([link](https://github.com/BeipDev/BeipMU/blob/master/TileMap.md)) package, but adds features to work with multiple tilesets per map, layering and options to choose tileset resolutions.
 
+Example of an initial tileset definition command
+```json
+mudstandards.tilemap.tilesets {
+    "mobs":{
+        "url":"http://prelle.selfhost.eu:4080/symbols/Steam Arcana Mobs.png",
+        "sizeX":32,
+        "sizeY":32,
+        "anim":{}
+    },
+    "assets":{
+        "url":"http://prelle.selfhost.eu:4080/symbols/Steam Arcana Assets.png",
+        "sizeX":32,
+        "sizeY":32,
+        "anim":{}
+    },
+    "immobiles":{
+        "url":"http://prelle.selfhost.eu:4080/symbols/Steam Arcana Immobiles.png",
+        "sizeX":32,
+        "sizeY":32,
+        "anim":{}
+    },
+    "terrain":{
+        "url":"http://prelle.selfhost.eu:4080/symbols/Steam Arcana Terrain.png",
+        "sizeX":32,
+        "sizeY":32,
+        "anim":{}
+    }
+}
+```
+
+Sporadic (usually once per area change) definition how to map tile numbers to tilesets.
+
+```json
+mudstandards.tilemap.info {
+    "tileWidth":32,
+    "tileHeight":32,
+    "mapWidth":11,
+    "mapHeight":11,
+    "range":{
+        "1":"terrain",
+        "257":"immobiles",
+        "513":"assets",
+        "621":"mobs"
+    }
+}
+```
+Tiles from 1-256 are taken from the "terrain" tileset, tiles from 257-512 from the "immobiles" tileset, etc.
+
+Example of a layered map.
+```json
+mudstandards.tilemap.update {
+    "data":[
+        [
+            [],[],[],[],[],[],[],[],[],[],[]
+        ],[
+            [],[],[],[],[],[],[],[],[],[],[]
+        ],[
+            [],[],[119],[119],[119],[10,308],[119],[119],[119],[119],[119]
+        ],[
+            [],[],[119],[10],[10],[10],[10,641],[10],[119],[10,534],[10,535]
+        ],[
+            [],[],[119],[10,536],[10],[10],[10,539,556],[10,540],[119],[10],[10]
+        ],[
+            [],[],[119],[10],[10],[10,645],[10],[10],[119],[10],[10]
+        ],[
+            [],[],[119],[10,537],[10],[10],[10],[10],[10,311],[10],[10,639]
+        ],[
+            [],[],[119],[119],[10,308],[119],[119,306],[119],[119],[119],[119]
+        ],[
+            [],[],[],[],[],[],[],[],[],[],[]
+        ],[
+            [],[],[],[],[],[],[],[],[],[],[]
+        ],[
+            [],[],[],[],[],[],[],[],[],[],[]
+        ]
+    ]
+}
+```
+An array of mapWidth x mapHeight (according to `mudstandards.tilemap.info`)) elements.
+Each element has either none, one or multiple tile numbers. If ther are multiple tile numbers, they are drawn in the given order, so that the last tile number is on top.
+For example `[10,539,556]` means that tile 10 is drawn first, then tile 539 on top of it and finally tile 556 on top of both. In the image below this is the floor tile from the terrain tileset, then the table from the assets tileset and finally the bowl from the immobiles tileset, above that the table and above the table the blue cup.
+
+![image-20260111182500318](Tilemap.png)
 ## Initial detection (TODO)
 
 Query
 Support   (graphic|ansi)
 
-## ms.tilemap.tilesets
+## mudstandards.tilemap.tilesets
 
 With this command the server informs the client about all tilesets available and assigns identifiers to reference them in later commands. Tilesets may come in different resolutions - the client is free to pick the one suited best.
 
 ```json
-ms.tilemap.tilesets {
+mudstandards.tilemap.tilesets {
     "terrain": {
     	url: "http://.../SmallTiles.png",
         sizeX: 32,
@@ -60,7 +143,7 @@ Each tileset is named and the name is later used to reference it from other comm
 This command tells the client to prepare one or more areas that should show tilemaps. Each area can make use of all tilesets that have been uploaded by `tilemap.tilesets` before. If the tilesets are provided in multiple resolutions, it is up to the client to pick the one used - e.g. because the user chooses a resolution or because of the screen size.
 
 ```json
-ms.tilemap.area {
+mudstandards.tilemap.area {
     "World Map": {
         "map-size": "21x21",
         "encoding": "Hex_8",
@@ -99,7 +182,7 @@ To prepare the interpretation of the tile number, the **tilesets** element tells
 This command will be send for each update in the map. The identifier tells *which* area is updated. For each area there are one or more layers given. Drawing should start with the layer with the lowest number and then processed ascending. For each layer, there are all tile numbers for the whole map expected. E.g. if a map is 11x11 tiles large and have a HEX_24 encoding, each layer must contain 11x11x3 = 363 hexadecimal digits.
 
 ```json
-ms.tilemap.data {
+mudstandards.tilemap.data {
 	"Surrounding": {
 		"0": "<string of layer data, depending on encoding",
 		"1": "<string of layer data, depending on encoding"

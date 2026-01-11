@@ -45,8 +45,8 @@ Sent from the server when something was written on a channel
 ```json
 ms.channel.event {
     {
-    	"id": "gsay",
-    	"sender": "Taranion",
+    	"chan": "gsay",
+    	"player": "Taranion",
     	"msg": "Taranion says to the group: Hello all!"
 	}
 }
@@ -55,9 +55,9 @@ ms.channel.event {
 
 | Property   | Type    | Required | Description                                                                          |
 | ---------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| id         | string  | **Mandatory** |  The channel identifier |
-| sender     | string  | **Optional**  |  The name of the sender. UTF-8, no color codes. Can be omitted for system messages.     |
+| chan     | string  | **Mandatory** |  The channel identifier |
+| player | string  | **Optional**  |  The name of the sender. UTF-8, no color codes. Can be omitted for system messages.     |
 | msg        | string  | **Mandatory** |  The message content. UTF-8, no color codes              |
-| senderANSI | string  | **Optional**  |  The name of the sender. UTF-8, may contain ANSI codes  |
+| playerANSI | string  | **Optional**  |  The name of the sender. UTF-8, may contain ANSI codes  |
 | msgANSI    | string  | **Optional**  |  The message content. UTF-8, may contain ANSI codes      |
 
