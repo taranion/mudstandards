@@ -4,6 +4,12 @@ description: Suggestions how to standardize WebSocket usage for MUDs
 ---
 # Using RFC 6455 WebSocket for MUDs
 
+:::warning
+This document is a proposal and not an official standard. It is meant to be a starting point for discussion and further development.
+You can discuss this proposal in the [Github discussion](https://github.com/taranion/mudstandards/discussions).
+
+:::
+
 Being able to connect to a game using a WebSocket instead of a classic Telnet connection is a plus for web or mobile clients. But what exactly gets transmitted over the socket to the application layer and how (as a binary or text frame)? 
 
 ## The Current Situation
