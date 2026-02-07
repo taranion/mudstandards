@@ -16,7 +16,7 @@ should display the content from the receive buffer to the user.
 
 | Tokens         | Bytes     | Meaning                                           |
 | -------------- | --------- | ------------------------------------------------- |
-| IAC WILL ECHO  | 255 251 25 | Server: I will/would like to send EOR codes      |
-| IAC WON'T ECHO | 255 252 25 | Server: I won't send EOR codes                   |
-| IAC DO ECHO    | 255 253 25 | Client: Okay to send EOR codes                   |
-| IAC DON'T ECHO | 255 254 25 | Client: Don't/Stop sending EOR codes             |
+| IAC WILL EOR | 255 251 25 | Server: I will/would like to send EOR codes      |
+| IAC WON'T EOR | 255 252 25 | Server: I won't send EOR codes                   |
+| IAC DO EOR   | 255 253 25 | Client: Okay to send EOR codes                   |
+| IAC DON'T EOR | 255 254 25 | Client: Don't/Stop sending EOR codes             |
