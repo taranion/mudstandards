@@ -15,12 +15,12 @@ but notes in Appendix D that further work on a new telnet option would be needed
 not change existing protocols.
 
 
-| Tokens         | Bytes      | Meaning                                           |
-| -------------- | ---------- | ------------------------------------------------- |
-| IAC WILL NAWS  | 255 251 31 | Client: I can negotiate charsets                  |
-| IAC WONT NAWS  | 255 252 31 | Client: I won't negotiate charsets                |
-| IAC DO   NAWS  | 255 253 31 | Server: Hey client, let's negotiate charsets      |
-| IAC DONT NAWS  | 255 254 31 | Server: Sorry, I cannot negotiate charsets        |
+| Tokens           | Bytes      | Meaning                                      |
+| ---------------- | ---------- | -------------------------------------------- |
+| IAC WILL CHARSET | 255 251 31 | Client: I can negotiate charsets             |
+| IAC WONT CHARSET | 255 252 31 | Client: I won't negotiate charsets           |
+| IAC DO   CHARSET | 255 253 31 | Server: Hey client, let's negotiate charsets |
+| IAC DONT CHARSET | 255 254 31 | Server: Sorry, I cannot negotiate charsets   |
 
 ## Handshake plus initial message
 ```mermaid
