@@ -7,9 +7,13 @@ Source: [Aardwolf](https://www.aardwolf.com/wiki/index.php/Clients/GMCP#aardmodu
 
 ## group
 
-Needs to be the first message that the client sends, used to identify the client
+
+Group GMCP messages are only sent once per second and are only  sent then if the group itself has changed or the vitals/stats of a group member have changed. For larger groups this may be once every 2 seconds (10+ players) or every 3 seconds (20+ players). 
+
+The GMCP group information consists of two main sections, the group header and an array of members. The group header contains:
+
 ````json
-roup { 
+group { 
     "groupname": "lsdkfs", 
     "leader": "Lasher", 
     "created": "28 Dec 14:05", 
@@ -41,8 +45,8 @@ roup {
     ] 
 }
 ````
-- **Client**
-  (*Mandatory*) Name of the client
+Most of the group information is fairly self explanatory but 'qs' is  worth explaining further - this field indicates what 'qt' (quest time)  actually represents:
+
 - **qt**
   (*Optional*) Quest time<br/>
     0 - Player has no quest timer and can quest. Qt should be zero.<br/>
@@ -50,3 +54,8 @@ roup {
     2 - Player is waiting to quest. Qt represents time until they can quest.<br/>
     3 - Character is a mob, unable to quest.
 
+The "here" field is for whether or not the member is in the same room as the one receiving the GMCP information.
+
+**Note:**  Group information is not sent by default. It needs to be turned on either by:
+
+- Sending 'group on' or 'group off' via  GMCP. If you are using the Aardwolf MUSHclient, this can be achieved  manually by using 'sendgmcp group on'.
