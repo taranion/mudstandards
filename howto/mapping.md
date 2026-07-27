@@ -14,7 +14,7 @@ Having a map to aid orientation is a feature that enhances the players experienc
 
 ### Detecting rooms and exits
 
-MUD servers do not normally provide maps. Traditionally it is the job of a client to draw the map while the player explores an area. For that to work, the mapper must automatically detect when a player enters a new room - and learn which possible exists exist. There are three ways to achieve that.
+MUD server code bases written before the 2000's typically did not provide in-game maps.  Players who wanted maps were expected to draw them by hand, as was common practice with other single player text adventure games at the time.   As MUD worlds began to grow beyond the size of the smaller text adventures that preceded them, maintaining a set of hand drawn maps became more of a burden.   Some of the earliest dedicated MUD clients were developed with features to aid players with making their own maps.
 
 1. **Detect the output format of new rooms and learn commands**<br/>
    Often a room name begins directly on the start of a line ... maybe it is underlined or bold ... maybe some brackets follow. 
