@@ -43,7 +43,7 @@ MUD servers do not normally provide maps. Traditionally it is the job of a clien
    
    >:::warning
    >
-   > The original spec only assumed numerical room identifiers - nowadays these often just strings. If you do an implementation, better expect strings.
+   > The original spec only assumed numerical room identifiers - nowadays these are often just strings. If you do an implementation, better expect strings.
    
    >:::warning
    >
