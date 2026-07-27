@@ -1,23 +1,23 @@
 ---
-sidebar_label: ms.char
+sidebar_label: mudstd.char
 ---
-# The ``ms.char`` package
+# The ``mudstd.char`` package
 
 ## Resources
 
 :::note
-This duplicates the ``ms.resources`` package, but places it under the ``ms.char`` namespace to group all character related features together.
+This duplicates the ``mudstd.resources`` package, but places it under the ``mudstd.char`` namespace to group all character related features together.
 I am not sure yet which one is the better approach.
 :::
 
 The term "resources" refers to fast changing energies like Health or Mana.
 
-### ms.char.resources.definitions
+### mudstd.char.resources.definitions
 
 Sent by the server to inform the client of all resources tracked on the MUD. The server may send more resources as those that apply to the character, e.g. because class specific resources exist.
 
 ````json
-ms.char.resources.definitions {
+mudstd.char.resources.definitions {
     {
     	"id": "hp",
     	"label": "Hit Points",
@@ -41,12 +41,12 @@ ms.char.resources.definitions {
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for this resource
 
-### ms.char.resources.update
+### mudstd.char.resources.update
 
 This command is sent from the server to the client to inform of the current state of the characters resources. Servers may send this in a fixed interval or only when resources are changing
 
 ```json
-ms.char.resources.update {
+mudstd.char.resources.update {
     {
     	"id": "hp",
     	"current": "15",
@@ -83,10 +83,10 @@ ms.char.resources.update {
 
 ## Attributes
 
-### ms.char.attributes.definitions
+### mudstd.char.attributes.definitions
 
 ```json
-ms.char.attributes.definitions {
+mudstd.char.attributes.definitions {
     {
     	"id": "str",
     	"label": "Strength",
@@ -100,12 +100,12 @@ ms.char.attributes.definitions {
 }
 ```
 
-### ms.char.attributes.update
+### mudstd.char.attributes.update
 
 This command is sent from the server to the client to inform of the current state of the characters attributes. 
 
 ```json
-ms.char.attributes.update {
+mudstd.char.attributes.update {
     {
     	"id": "str",
     	"current": "8",

@@ -1,14 +1,14 @@
 ---
-sidebar_label: mudstandards.tilemap
+sidebar_label: mudstd.tilemap
 ---
 
-# The 'mudstandards.tilemap' package
+# The 'mudstd.tilemap' package
 
 The purpose of this package is to allow MU\* servers to control coordinate based maps. It is inspired from the `beip.tilemap` ([link](https://github.com/BeipDev/BeipMU/blob/master/TileMap.md)) package, but adds features to work with multiple tilesets per map, layering and options to choose tileset resolutions.
 
 Example of an initial tileset definition command
 ```json
-mudstandards.tilemap.tilesets {
+mudstd.tilemap.tilesets {
     "mobs":{
         "url":"http://prelle.selfhost.eu:4080/symbols/Steam Arcana Mobs.png",
         "sizeX":32,
@@ -39,7 +39,7 @@ The client can load all those tilesets, segment them according to the tile size 
 
 Sporadic (usually once per area change) definition how to map tile numbers to tilesets and the map dimensions.
 ```json
-mudstandards.tilemap.info {
+mudstd.tilemap.info {
     "tileWidth":32,
     "tileHeight":32,
     "mapWidth":11,
@@ -57,7 +57,7 @@ The map area is 11 tiles wide and 11 tiles high, each tile is 32x32 pixels - so 
 
 Example of a layered map:
 ```json
-mudstandards.tilemap.update {
+mudstd.tilemap.update {
     "data":[
         [
             [],[],[],[],[],[],[],[],[],[],[]
@@ -85,7 +85,7 @@ mudstandards.tilemap.update {
     ]
 }
 ```
-An array of mapWidth x mapHeight (according to `mudstandards.tilemap.info`)) elements.
+An array of mapWidth x mapHeight (according to `mudstd.tilemap.info`)) elements.
 Each element has either none, one or multiple tile numbers. If ther are multiple tile numbers, they are drawn in the given order, so that the last tile number is on top.
 For example `[10,539,556]` means that tile 10 is drawn first, then tile 539 on top of it and finally tile 556 on top of both. In the image below this is the floor tile from the terrain tileset, then the table from the assets tileset and finally the bowl from the immobiles tileset, above that the table and above the table the blue cup.
 
@@ -95,12 +95,12 @@ For example `[10,539,556]` means that tile 10 is drawn first, then tile 539 on t
 Query
 Support   (graphic|ansi)
 
-## mudstandards.tilemap.tilesets
+## mudstd.tilemap.tilesets
 
 With this command the server informs the client about all tilesets available and assigns identifiers to reference them in later commands. Tilesets may come in different resolutions - the client is free to pick the one suited best.
 
 ```json
-mudstandards.tilemap.tilesets {
+mudstd.tilemap.tilesets {
     "terrain": {
     	url: "http://.../SmallTiles.png",
         sizeX: 32,

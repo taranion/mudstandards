@@ -1,23 +1,23 @@
 ---
-sidebar_label: ms.resources
+sidebar_label: mudstd.resources
 ---
-# The ``ms.resources`` package
+# The ``mudstd.resources`` package
 
 ## Resources
 
 :::note
-This duplicates parts of the ``ms.char`` package, but places it under the ``ms.resources`` namespace to allow usage for non-character related resources as well.
+This duplicates parts of the ``mudstd.char`` package, but places it under the ``mudstd.resources`` namespace to allow usage for non-character related resources as well.
 A decision which one is the better approach is pending.
 :::
 
 The term "resources" refers to fast changing energies like Health or Mana.
 
-### ms.resources.definitions
+### mudstd.resources.definitions
 
 Sent by the server to inform the client of all resources tracked on the MUD. The server may send more resources as those that apply to the character, e.g. because class specific resources exist.
 
 ````json
-ms.resources.definitions {
+mudstd.resources.definitions {
     {
     	"id": "hp",
     	"label": "Hit Points",
@@ -41,12 +41,12 @@ ms.resources.definitions {
 - **color**
   (*Optional*) Hexadecimal RGB code of a color to use for this resource
 
-### ms.resources.update
+### mudstd.resources.update
 
 This command is sent from the server to the client to inform of the current state of the characters resources. Servers may send this in a fixed interval or only when resources are changing
 
 ```json
-ms.resources.update {
+mudstd.resources.update {
     {
     	"id": "hp",
     	"current": "15",

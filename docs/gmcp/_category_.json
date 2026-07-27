@@ -1,0 +1,8 @@
+{
+  "label": "GMCP",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "A list of known GMCP packages"
+  }
+}

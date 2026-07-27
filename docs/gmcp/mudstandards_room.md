@@ -1,7 +1,7 @@
 ---
-sidebar_label: ms.room
+sidebar_label: mudstd.room
 ---
-# The ``ms.room`` package
+# The ``mudstd.room`` package
 :::warning
 This is a proposal and request for comments only. 
 :::
@@ -17,11 +17,11 @@ Some commands still were generic enough to be used for other games as well and `
 
 So, this package tries to be more precise which parameters are mandatory and which are optional. It also tries to come up with more enhanced features for mappers or other ways to display room content. 
 
-### ms.room.terrain
+### mudstd.room.terrain
 Expected to be sent only once - either on connect or at most once per zone/area change.
 
 ````json
-ms.room.terrain {
+mudstd.room.terrain {
     {
         "id": "city",
         "label": "City",
@@ -46,10 +46,10 @@ ms.room.terrain {
   (*Optional*) Hexadecimal RGB code of a color to use for this terrain
 
 
-### ms.room.info
+### mudstd.room.info
 
 ````json
-ms.room.info {
+mudstd.room.info {
     "id": "1/1/12",
     "name": "On a hill",
     "description": "The view from this hill is spectacular ... at least that is what you will tell anyone if asked.",
@@ -70,7 +70,7 @@ ms.room.info {
 - **description**
   (*Optional*) The full room description
 - **terrain**
-  (*Optional*) A reference to a terrain definition. See `ms.room.terrain`
+  (*Optional*) A reference to a terrain definition. See `mudstd.room.terrain`
 - **exits**
   (*Mandatory*) A map of exists, identified by the direction. Each entry consists of a map of exit object. The direction (mostly N,S,E,W,U,D,NE,NW,SE,SW,IN,OUT but other strings (e.g. "clockwise") might be used as well) serves as a key. Valid attributes of an exit are:
   - **id** (*Mandatory*) 
@@ -79,12 +79,12 @@ ms.room.info {
     Direction in which you can return from the target room back to this room. Useful for mappers in maps where exit directions are not simple inverse.
   
 
-### ms.room.entities
+### mudstd.room.entities
 
 This command sends a list of NPCs/mobiles/players and items that are in the room (or near surrounding) to interact with.
 
 ````json
-ms.room.entities {
+mudstd.room.entities {
     "name": "<display name for the entity",
     "type": "[mobile|item|player]",
     "icon_url": "optional url to a small 32x32 pixel image",

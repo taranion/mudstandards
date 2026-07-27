@@ -6,6 +6,9 @@ sidebar_label: MXP (Option 91)
 ## Version History
 
 ### Version 1.2 (01/2010 cMUD 3.13)
+
+> zMUD (and early versions of CMUD) was sometimes  criticized for how it handled undefined MXP tags (or text that looked  like an MXP tag). CMUD later added options for controlling how undefined tags are handled and is now fully compliant with the MXP specification. This and other bug fixes in MXP mark CMUD as MXP v1.2 instead of v1.0,  not because of any MXP protocol change, but to indicate the enhancement  to the MXP protocol implementation.
+
 - Added: MXP REPORT tag (as described in MXP Developers Forum)
 - Added: MXP via Telnet SB channel (as described in MXP Developers Forum)
 - RoomNum flag now supported in EMPTY tag and tags ending in /> with the first argument of the tag passed as the room number. E.g. ``<RoomNum 123/>``
@@ -21,7 +24,19 @@ sidebar_label: MXP (Option 91)
 - The &lt;FRAME&gt; tag was changed to be easier to implement and closer to the ``<xch_pane>`` tag used in Pueblo.  The concept of a "Parent" for the frame was removed.  Frames now default to new windows.  The "internal" option can be used to specify a frame within the current MUD window if supported by the client.
 - The ``parent`` attribute of &lt;FRAME&gt; was removed
 
+### Version 0.5
+
+It isn't clear if this ever existed as a spec, but MUSHclient with its proprietary extensions announced this.
+See: http://www.gammon.com.au/forum/?id=9843
+
+* Introduced `<AFK>` tag
+
+* Introduced `<RECOMMENDED_OPTION>` tag
+
+  
+
 ### Version 0.4
+
 - Introduced the line tags 3-7
 - Changed that line tags are never automatically closed
 - The ``<SCRIPT>`` tag is no longer supported in version 0.4 MXP.  
@@ -209,7 +224,12 @@ The DELETE argument allows you to delete an element  previously defined.
 
 Security Note: Elements are marked as to whether they  are created by the MUD or created interactively by the user. The user  cannot override Secure elements sent from the MUD. The user is only  allowed to override Open elements sent from the MUD.
 
+Added in cMUD 2.03 / MXP 1.1
+
+> "Added MULTILINE attribute to user-defined MXP tags. MULTILINE tags can span multiple lines even in OPEN MXP mode"
+
 #### Attributes
+
 ```
 <!ATTLIST> <!AT>
 <!ATTLIST element-name attribute-list>
@@ -619,7 +639,12 @@ The following additional HTML tags might be supported within MXP:
 <SMALL>    Small text
 <TT>    Non-proportional font
 ```
+In cMUD / MXP 1.1 the `HR` tag was extended:
+
+> Added `<HR>` tag to MXP for drawing horizontal rule. Full syntax is `<HR fore="color" back="color" size="pixels">`. If used after text, the horizontal rule is drawn from the current cursor position to the end of the line
+
 ### MSP Compatibility
+
 For MSP Compatibility, the ``<SOUND>`` and ``<MUSIC>`` tags are available in MXP.   They have the same keyword syntax and the equivalent !!SOUND and !!MUSIC MSP tags.
 
 ### Using Entities
@@ -698,7 +723,7 @@ The attributes for the ``<FRAME>`` tag are:
 
   Forces the frame to "stay on top" of the main MUD window.     Ignored for Internal windows.
   
-- PERSISTENT
+- PERSISTENT  (since cMUD 2.30)
 
   The idea behind the "persistent" option is that  existing windows/frames are not changed in size or position.  So the  specified top/left/width/height attributes only take effect when  creating a *new* frame. ([Source](http://forums.zuggsoft.com/forums/viewtopic.php?p=134023))
 
@@ -800,7 +825,7 @@ This is similar to the ``<IMG>`` HTML tag but doesn't implement some of the HTML
 
 - T (type)
 
-  The class for the image. Same as classes used in MSP.  (Sinve 1.2)
+  The class for the image. Same as classes used in MSP.  (Since 1.2)
 
 - H (height)
 
@@ -853,6 +878,40 @@ It is likely that the MUD does not want all of the images stored on the clients 
 ```
 
 This would call the Filter function in the MYPLUGIN plugin module whenever the MUD tries to display a .gff file. The .gff file is read into memory and passed to the Filter function in the plugin (with PROC=0 in the above example) and expect a .gif format output to be returned by the function. Simply provide your plugin for users and you can then store proprietary files on the client that are decoded and displayed as needed. Note that this same Filter function can also be used to process sound files used by MSP.
+
+## MUSHClient Tags
+
+See  also: https://www.gammon.com.au/forum/threads/238.htmlAFK
+
+```
+Server sends: <afk> 
+or: <afk challenge=goatsblood> 
+Client replies:   <AFK 75 > 
+or (if a challenge given): <AFK 4 goatsblood> 
+```
+
+The AFK figure is the number of seconds since user input (ie. a command  typed). The AFK response would cancel TCP idle-time, yes.
+
+ The challenge was intended to make it harder for a client to simply spit out AFK replies periodically. The idea was that the server would send  out a random challenge, and that challenge had to be incorporated in the response.
+
+### RECOMMENDED_OPTION
+
+Implemented MXP tag `<recommend_option>` that lets a server  recommend that a client option be set. This has to be enabled on the  MXP/Pueblo configuration page.  
+
+The options that the server may set are currently:  
+
+* `mud_can_change_link_colour`, 
+* `mud_can_remove_underlines`,  
+* `underline_hyperlinks` and
+*  `use_custom_link_colour`. 
+
+e.g. `<recommend_option use_custom_link_colour=0> `
+
+This is basically to let the server recommend that the client turns on, or off, one of those four options.
+
+ In MUSHclient, you have to have enabled the option "MUD can change some  options", and if you have that checked, then the recommendation is acted on.
+
+
 
 ## Outdated Tags
 
