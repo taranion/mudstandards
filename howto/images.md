@@ -1,5 +1,6 @@
 ---
 sidebar_label: Inline Images
+unlisted: true
 ---
 
 # How to send inline images

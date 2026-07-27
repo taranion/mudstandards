@@ -1,5 +1,6 @@
 ---
 sidebar_label: Authentication
+unlisted: true
 ---
 
 # How to automatically login

@@ -6,4 +6,4 @@ sidebar_class_name: hidden
 
 # How To ...
 
-To be done
+In this category we will collect some helpful articles regarding "How to do stuff" when you are implementing a client or a server.

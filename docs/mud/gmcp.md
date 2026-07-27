@@ -64,5 +64,5 @@ The package name can be case insensitive.
 The ``<data>`` field is optional and should be separated from the package field with a space. When sending a command without a data section the space should be omitted. The data field must use the JSON data syntax with keywords being case sensitive using UTF-8 encoding.
 
 ## Packages
-Each MUD server is expected to define and document its own packages. You can find a list of packages in use [here](../gmcp) 
+Each MUD server is expected to define and document its own packages. You can find a list of packages in use [here](../) 
 

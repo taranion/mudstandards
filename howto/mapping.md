@@ -4,6 +4,8 @@ sidebar_label: Mapping
 
 # So you want to write a mapper ...
 
+This article is intended for client and server developers who want a nice automap experience for players.
+
 ## Graph Maps
 
 Having a map to aid orientation is a feature that enhances the players experience. The majority of MU*s has a world that consists of "rooms" that are connected to other rooms - together such a world forms a graph. Displaying such a graph map is one of the premium features of a MUD client - here is one example of one of the first mappers ever (in zMUD)

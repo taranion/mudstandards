@@ -1,5 +1,7 @@
 ---
 sidebar_label: Sound
+unlisted: true
+
 ---
 
 # How to play sound and music
