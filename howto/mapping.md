@@ -30,7 +30,7 @@ MUD server code bases written before the 2000's typically did not provide in-gam
    "ROOM_NAME"            Current room's name.
    "ROOM_VNUM"            Current room's virtual number, or a unique identifier if a vnum is unavailable.
    ```
- 
+
    The second and recommended approach (since 2011) is to use the room table
    ```
    "ROOM"
@@ -46,7 +46,7 @@ MUD server code bases written before the 2000's typically did not provide in-gam
 
 #### 4. **GMCP `room.info`**<br/>
    Among the first packages defined for GMCP was the [`room`](../gmcp/room) package. It was used to send a GMCP event that roughly looks like this:
-   
+
    ```json
    room.info {
        "num": 12345
@@ -58,19 +58,19 @@ MUD server code bases written before the 2000's typically did not provide in-gam
        ... plus more game dependent information ...
    }
    ```
-   
+
    >:::warning
    >
    > The original spec only assumed numerical room identifiers - nowadays these are often just strings. If you do an implementation, better expect strings.
-   
+
    >:::warning
    >
    > Some MUDs do not send any room identifiers (or placeholders) - sometimes this happens just for maze zones, sometimes in general.
-   
+
    >:::info
    >
    > Directions are not only the cardinal directions, but also include up/down, in/out, clockwise/counter-clockwise and more. The direction names are not standardized, so a mapper should be able to handle synonyms.
-   
+
    The additional fields and their names vary from server to server, but 
    GMCP is still the most reliable way to detect rooms and exits. It is also the only way to detect rooms that are not unique by name or description. If you are writing a mapper, you should support GMCP.
 
@@ -82,13 +82,14 @@ MUD server code bases written before the 2000's typically did not provide in-gam
    As of today, the `mudstd.room` package is still a proposal and request for comments and not yet adopted.
    
    
+
 So, there are three telnet options that define a way to transmit room information to a client: MXP, MSDP and GMCP.
 While MXP is likely the most widely supported option (see graph below), it isn't known if servers make use of the output tagging at all.
 Between GMCP and MSDP, GMCP is more widely supported - but there are still a lot of MUDs that only support MSDP.
 
 ![](https://muds.modem.xyz/_images/protocol_support.png)
 (Source: https://muds.modem.xyz/statistics.html#protocol-support )
-   
+
 ### Positioning rooms
 
 Knowing that a room is west of another may not be the only problem. Consider this room layout:
@@ -399,3 +400,9 @@ Several standards exist to transmit inline images. A map can be pre-rendered by 
 * Pueblo `<img>`
 
   Modeled after the HTML `img`-tag
+  
+* **ANSI maps**
+
+  Of course there are also maps that can be expressed by ANSI coloring and character glyphs (depending on the encoding).
+  
+  ![](mapping2.png)
