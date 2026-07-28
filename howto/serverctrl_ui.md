@@ -118,7 +118,7 @@ It is recommended that each client defines its own GMCP package with the clientn
 
 ## 5. GMCP `mudstd.frame`
 
-This is by and large a mixture of MXP frames and GMCP `webview`. Where MXP `<frame>` provides terminal windows and GMCP `webview` provides web pages, GMCP [`mudstd.frame`](..\gmcp\mudstandards_frame) aims to be more versatile with a minimal amount of capability exchange.
+This is by and large a mixture of MXP frames and GMCP `webview`. Where MXP `<frame>` provides terminal windows and GMCP `webview` provides web pages, GMCP [`mudstd.frame`](../gmcp/mudstandards_frame) aims to be more versatile with a minimal amount of capability exchange.
 
 Upon connection, a client supporting this package sends a GMCP command like this:
 
