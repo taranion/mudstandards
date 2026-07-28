@@ -93,8 +93,8 @@ So, there are three telnet options that define a way to transmit room informatio
 While MXP is likely the most widely supported option (see graph below), it isn't known if servers make use of the output tagging at all.
 Between GMCP and MSDP, GMCP is more widely supported - but there are still a lot of MUDs that only support MSDP.
 
-![](https://muds.modem.xyz/_images/telnet_options.png)
-(Source: https://muds.modem.xyz/statistics.html#telnet-option-negotiation )
+![](https://muds.modem.xyz/_images/protocol_support.png)
+(Source: https://muds.modem.xyz/statistics.html#protocol-support )
    
 ### Positioning rooms
 
