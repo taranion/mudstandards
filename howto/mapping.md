@@ -16,17 +16,42 @@ Having a map to aid orientation is a feature that enhances the players experienc
 
 MUD server code bases written before the 2000's typically did not provide in-game maps.  Players who wanted maps were expected to draw them by hand, as was common practice with other single player text adventure games at the time.   As MUD worlds began to grow beyond the size of the smaller text adventures that preceded them, maintaining a set of hand drawn maps became more of a burden.   Some of the earliest dedicated MUD clients were developed with features to aid players with making their own maps.
 
-1. **Detect the output format of new rooms and learn commands**<br/>
+#### 1. **Detect the output format of new rooms and learn commands**<br/>
    Often a room name begins directly on the start of a line ... maybe it is underlined or bold ... maybe some brackets follow. 
 
    For exists the client may recognize a typed command as a direction to move, but it is just guessing that a typed `n` means `north` - and let's not think about `in` or `clockwise` as directions.
    As you can see, this is all quite vague and highly dependent on the MUD in question.  This lead to the following feature
 
-2. **MXP tags**<br/>
+#### 2. **MSDP**<br/>
+   The [MSDP](../mud/msdp) protocol was introduced in 2009 and allows a MUD to send structured data to the client.  It is a simple key-value protocol, where the server can send a list of variables and their values. 
+   There are two approaches to transmit room information via MSDP. The first one is to send the room information as a single MSDP variable, like this:
+   ```
+   "AREA_NAME"            Current room's area name.
+   "ROOM_EXITS"           Current room's exits in array format, preferably using n e s w u d nw ne se sw notation.
+   "ROOM_COORDINATES"     Current room's coordinates in array format, preferably using the x y z order.
+   "ROOM_NAME"            Current room's name.
+   "ROOM_VNUM"            Current room's virtual number, or a unique identifier if a vnum is unavailable.
+   ```
+ 
+   The second and recommended approach (since 2011) is to use the room table
+   ```
+   "ROOM"
+     "VNUM"               A number uniquely identifying the room.
+     "NAME"               The name of the room.
+     "AREA"               The area the room is in.
+     "COORDS"              (optional)
+       "X"                The X coordinate of the room.
+       "Y"                The Y coordinate of the room.
+       "Z"                The Z coordinate of the room.
+     "TERRAIN"            The terrain type of the room. Forest, Ocean, etc.
+     "EXITS"              Nested abbreviated exit directions and corresponding destination VNUMs.
+   ```
+
+#### 3. **MXP tags**<br/>
    When [MXP](../mud/mxp) v0.3 was introduced, it defined 3 [line-tags](../mud/mxp#mxp-line-tags) that could tell a client what part of the output was *a room name* or a *room description* or an *exit*.  At that time this was THE way to ensure a good mapping experience in zMUD.
    It still had some issues, for example when the room name was not unique and maybe the room description changing over time. Also not all MUDs were able to implement MXP or deal with opening and closing ANSI control sequences. This finally lead to
 
-3. **GMCP `room.info`**<br/>
+#### 4. **GMCP `room.info`**<br/>
    Among the first packages defined for GMCP was the [`room`](../gmcp/room) package. It was used to send a GMCP event that roughly looks like this:
    
    ```json
@@ -63,6 +88,13 @@ MUD server code bases written before the 2000's typically did not provide in-gam
    
    As of today, the `mudstd.room` package is still a proposal and request for comments and not yet adopted.
    
+   
+So, there are three telnet options that define a way to transmit room information to a client: MXP, MSDP and GMCP.
+While MXP is likely the most widely supported option (see graph below), it isn't known if servers make use of the output tagging at all.
+Between GMCP and MSDP, GMCP is more widely supported - but there are still a lot of MUDs that only support MSDP.
+
+![](https://muds.modem.xyz/_images/telnet_options.png)
+(Source: https://muds.modem.xyz/statistics.html#telnet-option-negotiation )
    
 ### Positioning rooms
 
