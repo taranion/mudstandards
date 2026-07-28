@@ -26,9 +26,7 @@ MUD server code bases written before the 2000's typically did not provide in-gam
    The [MSDP](../mud/msdp) protocol was introduced in 2009 and allows a MUD to send structured data to the client.  It is a simple key-value protocol, where the server can send a list of variables and their values. 
    There are two approaches to transmit room information via MSDP. The first one is to send the room information as a single MSDP variable, like this:
    ```
-   "AREA_NAME"            Current room's area name.
    "ROOM_EXITS"           Current room's exits in array format, preferably using n e s w u d nw ne se sw notation.
-   "ROOM_COORDINATES"     Current room's coordinates in array format, preferably using the x y z order.
    "ROOM_NAME"            Current room's name.
    "ROOM_VNUM"            Current room's virtual number, or a unique identifier if a vnum is unavailable.
    ```
@@ -38,12 +36,7 @@ MUD server code bases written before the 2000's typically did not provide in-gam
    "ROOM"
      "VNUM"               A number uniquely identifying the room.
      "NAME"               The name of the room.
-     "AREA"               The area the room is in.
-     "COORDS"              (optional)
-       "X"                The X coordinate of the room.
-       "Y"                The Y coordinate of the room.
-       "Z"                The Z coordinate of the room.
-     "TERRAIN"            The terrain type of the room. Forest, Ocean, etc.
+     ...
      "EXITS"              Nested abbreviated exit directions and corresponding destination VNUMs.
    ```
 
@@ -110,7 +103,7 @@ G --------- H
 
 and now assume a player is starting at H and walking clockwise - it will challenge the mapper's layout algorithm. 
 
-To help with the layout of the nodes of the map, *some* MUDs include map coordinates in the `room.info`:
+To help with the layout of the nodes of the map, *some* MUDs include map coordinates in the **GMCP** `room.info`:
 
 ```json
 room.info { 
@@ -130,6 +123,19 @@ room.info {
 ```
 
 But again: The `coord` attribute is optional. Sometimes - seen for zones where the server does not want the zone to be mappable - the coordinates are sent, but empty or -1.
+
+For **MSDP** there is either a `ROOM_COORDINATES` variable or a `COORDS` table within the ROOM table, which contains the `X`, `Y` and `Z` coordinates.
+
+```
+"ROOM"
+  "VNUM"               A number uniquely identifying the room.
+  "NAME"               The name of the room.
+  "COORDS"              (optional)
+    "X"                The X coordinate of the room.
+    "Y"                The Y coordinate of the room.
+    "Z"                The Z coordinate of the room.
+  "EXITS"              Nested abbreviated exit directions and corresponding destination VNUMs.
+```
 
 ### Transmitting a full zone graph-map
 
@@ -178,7 +184,7 @@ There is no guarantee that the URL of the MMP file is the full map - it may as w
 
 It is a helpful feature if the room node itself when rendered shows additional information, like the terrain - a "forest" room may be colored in dark green, the "meadow" in light green, a "path" in brown or a "road" in grey.
 
-The `room.info` often has either a `terrain` or `environment` attribute (depending on the MUD) that contains a single keyword. 
+The **GMCP** `room.info` often has either a `terrain` or `environment` attribute (depending on the MUD) that contains a single keyword. 
 
 ```json
 room.info { 
@@ -187,6 +193,14 @@ room.info {
     "terrain": "city", 
     ...
 }
+```
+
+In **MSDP** the ROOM_TABLE also has a `TERRAIN` variable, which contains a single keyword.
+```
+"ROOM"
+  "VNUM"               A number uniquely identifying the room.
+  ...
+  "TERRAIN"            The terrain type of the room. Forest, Ocean, etc.
 ```
 
 Since we do have a lot of different genres for games out there, there is no such thing as a common understanding what terrains exist. Your options here are:
