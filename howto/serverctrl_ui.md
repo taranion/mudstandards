@@ -115,3 +115,61 @@ Client.GUI {
 There is no standard language to write plugins that applies to all clients. As long as that is the case, this approach is limited to specific clients and their plugin languages.
 It is recommended that each client defines its own GMCP package with the clientname in as a subpackage, like `client.mudlet` or `client.mushclient` . 
 :::
+
+## 5. GMCP `mudstd.frame`
+
+This is by and large a mixture of MXP frames and GMCP `webview`. Where MXP `<frame>` provides terminal windows and GMCP `webview` provides web pages, GMCP [`mudstd.frame`](..\gmcp\mudstandards_frame) aims to be more versatile with a minimal amount of capability exchange.
+
+Upon connection, a client supporting this package sends a GMCP command like this:
+
+```json
+mudstd.frame.support {
+    "type": {"docked","external"},
+    "content": {"terminal","image"}
+}
+```
+
+The command above informs the server that the client can have split off areas inside the client ("docked") or open "external" windows. The content of such an area can either be a new "terminal" or a single "image".
+
+The server than [opens](../gmcp/mudstandards_frame#mudstdframeopen) a new frame like this:
+
+```json
+mudstd.frame.open {
+    "id"  : <string>,
+    "type": <frame type>, 
+    "content": <content type>,
+    "align": [top|bottom|left|right],
+    "label": <string>,
+    "parent": <string>,
+    "sizeValue": <string>,
+    "sizeUnit": <string>,
+    "url" : <string>
+}
+```
+
+Webview frames operate like the GMCP `webview` package and don't require more updates. Terminal or Image frames can get data pushed:
+
+```json
+mudstd.frame.terminal { 
+    "id":   "stats",
+    "clear" :   true,
+    "ansi" :    "\x1b[0;1;37mSTR:\X1b[0m 12"    
+}
+```
+
+```json
+mudstd.frame.image { 
+    "id":   "topleft",
+    "image" :   "base64:<base64data>"    
+}
+mudstd.frame.image { 
+    "id":   "topleft",
+    "image" :   "http://myserver.com/portrait.png"    
+}
+```
+
+:::warning​
+
+This GMCP package hasn't been implemented by neither clients nor servers yet - it is a proposal that awaits a reference implementation.
+
+:::
