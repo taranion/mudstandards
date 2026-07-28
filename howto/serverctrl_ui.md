@@ -100,7 +100,7 @@ All in all this is comparable to installing a custom plugin on the client - at l
 
 ## 4. Automatic Plugin Installation
 
-The concept here is that the server has dedicated support for specific clients and once such a client connects and identifies itself (via GMCP [`core.hello`](gmcp/core_hello)).
+The concept here is that the server has dedicated support for specific clients and once such a client connects and identifies itself (via GMCP [`core.hello`](../gmcp/core_hello)).
 
 There is no agreed upon standard how the server can instruct the client to install or update a plugin. Currently only *Mudlet* documented such a GMCP command in the `client` package:
 
