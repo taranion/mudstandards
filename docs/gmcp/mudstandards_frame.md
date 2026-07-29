@@ -77,8 +77,8 @@ mudstd.frame.support {
 
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| type            | List of [external\|docked\|floating\|child\|tab] | **Mandatory**|  Supported area types|
-| content     | List of [terminal\|webview\|image] | **Mandatory**|  Supported area content types |
+| type            | List of [external\|docked\|floating\|child\|tab] | **Mandatory**| Supported frame types |
+| content     | List of [terminal\|webview\|image] | **Mandatory**| Supported frame content types |
 
 
 ### mudstd.frame.open
@@ -101,7 +101,7 @@ mudstd.frame.open {
 
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| id             | string           | **Mandatory**|  A unique identifier for the room.                                                                                                                                                 |
+| id             | string           | **Mandatory**|  A unique identifier for the frame.                                                                                                                                             |
 | label          | string           | **Optional**| The name to appear above the window. Without it, no space for a label should be reserved                                                                                                       |
 | type            | [external\|docked\|floating\|child\|tab] | **Mandatory**|  How will this frame be handled: An external (moveable) window, a docked frame or a  child frame of another window or a tab, that can be displayed alternatively to the *parent*|
 | parent       | string           | **Optional**|  For windows of type *child*, the parent frame they belong to. For windows of type *tab*, the reference frame to alternate with.                                                    |
@@ -116,7 +116,7 @@ mudstd.frame.open {
 Sent from the server to request the closing of a frame.
 
 ````json
-mudstd.window.close { 
+mudstd.frame.close { 
     "id":   "topleft"
 }
 ````
@@ -124,7 +124,6 @@ mudstd.window.close {
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
 | id         | string  | **Mandatory** |  The identifier of the area to close |
-
 
 ### mudstd.frame.terminal
 
