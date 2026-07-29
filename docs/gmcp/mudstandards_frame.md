@@ -21,16 +21,19 @@ A frame can be one of the following types
   This is a sibling area to another area. This area is to be displayed as an alternative to the sibling area, visualized as a Tab
 
 ### <a name="ctype"></a>Frame content types
-There are three kinds of window content an area can have
+There are four kinds of window content an area can have
 * **Terminal**
   Comparable to the main area of the client, this area can display ANSI text content
 * **WebView**
   This area can be given an URL of a HTML+Javascript page. The client must expose a Javascript object to send and subscribe to GMCP commands (see TODO)
 * **Image**
   The only content of the area is a single image, which of course can be updated.  
+* **Canvas**
+  This area contains a declarative [`Client.Canvas`](./client_canvas.md). The frame controls
+  placement and sizing; the canvas package controls its content and links.
 
 ### Negotiating support
-It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstd.area.support`` command.
+It is likely that clients do not support all area and content types. Upon connecting to a server, the client should send the ``mudstd.frame.support`` command.
 
 ### <a name="size"></a>The size object
 ````json 
@@ -78,7 +81,7 @@ mudstd.frame.support {
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
 | type            | List of [external\|docked\|floating\|child\|tab] | **Mandatory**|  Supported area types|
-| content     | List of [terminal\|webview\|image] | **Mandatory**|  Supported area content types |
+| content     | List of [terminal\|webview\|image\|canvas] | **Mandatory**|  Supported area content types |
 
 
 ### mudstd.frame.open
@@ -101,14 +104,14 @@ mudstd.frame.open {
 
 | Property       | Type    | Required | Description                                                                          |
 | -------------- | ------- | ----- | ----------------------------------------------------------------------------------- |
-| id             | string           | **Mandatory**|  A unique identifier for the room.                                                                                                                                                 |
+| id             | string           | **Mandatory**|  A unique identifier for the frame.                                                                                                                                                |
 | label          | string           | **Optional**| The name to appear above the window. Without it, no space for a label should be reserved                                                                                                       |
 | type            | [external\|docked\|floating\|child\|tab] | **Mandatory**|  How will this frame be handled: An external (moveable) window, a docked frame or a  child frame of another window or a tab, that can be displayed alternatively to the *parent*|
 | parent       | string           | **Optional**|  For windows of type *child*, the parent frame they belong to. For windows of type *tab*, the reference frame to alternate with.                                                    |
 | align       | [top\|bottom\|left\|right] | **Conditional**|  On which side of the reference window shall this window appear                                                                                                                  |
 | sizeValue   | integer          | **Conditional**|  Size of the new window. Consult *sizeUnit* for meaning                                                                                                                          |
 | sizeUnit    | [c\|px\|%] | **Optional**|  Is the size to be interpreted as characters(c), pixel(px) or percent(%)                                                                                                            |
-| content     | [terminal\|[webview](#webview)] | **Optional**|  What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, while \`content="webview"\` is an HTML webpage with Javascript. |
+| content     | [terminal\|[webview](#webview)\|image\|[canvas](./client_canvas.md)] | **Optional**|  What type of content should be displayed in that frame? <br />\`content="terminal"\` is another terminal emulator, \`content="webview"\` is an HTML webpage with Javascript, and \`content="canvas"\` is populated by `Client.Canvas.Set`. |
 | url          | string              | **Conditional**|  In case of a `webview` content, this contains the URL to open                                                                                                                   |
 | details     | [details object](#details )              | **Optional**|  Configuration details for the new frame. There is no guarantee that the client implements a specific detail.                                                                                                               |
 
@@ -116,7 +119,7 @@ mudstd.frame.open {
 Sent from the server to request the closing of a frame.
 
 ````json
-mudstd.window.close { 
+mudstd.frame.close {
     "id":   "topleft"
 }
 ````
