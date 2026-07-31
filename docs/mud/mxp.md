@@ -3,6 +3,13 @@ sidebar_label: MXP (Option 91)
 ---
 # MUD Extension Protocol (MXP)
 
+:::note
+Collected information from:
+
+https://www.zuggsoft.com/zmud/mxp.htm
+https://www.gammon.com.au/mushclient/mxp.htm
+:::
+
 ## Version History
 
 ### Version 1.2 (01/2010 cMUD 3.13)
