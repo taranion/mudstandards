@@ -48,7 +48,6 @@ This document suggests the following protocols:
 | `terminal.mudstandards.org`  | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`      | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
 | `divstream.mudstandards.org` | 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
-| muddown                      |            |                                                              |
 | e.g. *myprotocol.mydomain*   | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
