@@ -41,61 +41,17 @@ Read more about it in [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455#s
 
 This document suggests the following protocols:
 
-| Protocol*                   | OPCODEs    | Description                                                  |
-| --------------------------- | ---------- | ------------------------------------------------------------ |
-| `telnet.mudstandards.org`   | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
-| `terminal.mudstandards.org` | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
-| `gmcp.mudstandards.org`     | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
-| `json.mudstandards.org`     | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain the [specific JSON payload](#json) defined in this document. |
-| `divstream.mudstandards.org`| 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
-| e.g. *myprotocol.mydomain*  | ?          | Any codebase custom protocol a client supports               |
+| Protocol*                    | OPCODEs    | Description                                                  |
+| ---------------------------- | ---------- | ------------------------------------------------------------ |
+| `telnet.mudstandards.org`    | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
+| `telnetb64.mudstandards.org` | 0 (TEXT)   | The complete telnet stream is packaged in a Base64 encoding TEXT frame. All telnet options are transmitted this way too. |
+| `terminal.mudstandards.org`  | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
+| `gmcp.mudstandards.org`      | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
+| `divstream.mudstandards.org` | 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
+| muddown                      |            |                                                              |
+| e.g. *myprotocol.mydomain*   | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
-
-## <a name="json"></a>The JSON Format
-
-The goal of this format is to express support for a large list of protocols. 
-
-```json
-{
-	"proto": "<string>",
-    "id": "<string>",      # Optional
-    "data": "<string>"
-
-}
-```
-
-| Field | TYPE   | Required | Description                                                  |
-| ----- | ------ | -------- | ------------------------------------------------------------ |
-| proto | string | yes      | What protocol is in the data                                 |
-| id    | string | no       | Something to further specify the content - e.g. a command name |
-| data  | string | yes      | Payload to be decoded into whatever the protocol expects.    |
-
-**Examples**
-
-```json
-{
-	"proto":	"gmcp",
-	"id": "Core.Hello",
-	"data": "{\"Client\": \"Mudterm\", \"Version\": \"0.2.0\"}"
-}
-```
-
-```json
-{
-	"proto":	"telnet_31",
-    "id": "NAWS",
-	"data": "...base64 encoded NAWS frame.."
-}
-```
-
-```json
-{
-	"proto": "coffeemud",
-	"id": "login",
-	"data": "..."
-}
-```
 
 ## Custom MUD protocols
 
