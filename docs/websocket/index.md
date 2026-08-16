@@ -71,5 +71,5 @@ In theory extensions would be suitable to multiplex a WebSocket payload into sev
 
 If a game supports connections via websocket, it is suggested that it uses the following MSSP variables:
 
-* `WEBSOCKET` - the URI at which the server can be reached. For example `wss://mygame.net/`
-* `WEBSOCKET_SUBPROTOCOLS` - a comma-separated list of subprotocol identifiers
+* `WEBSOCKET` - a comma-separated list of URIs (e.g. for `wss`:// and `ws://`) at which the server can be reached. For example `wss://mygame.net/`
+* `WEBSOCKET_SUBPROTOCOLS` - a comma-separated list of subprotocol identifiers. Not necessary if your game does support subprotocol negotiation, but may be interesting for game databases.
