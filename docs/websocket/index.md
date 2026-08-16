@@ -44,7 +44,7 @@ This document suggests the following protocols:
 | Protocol*                    | OPCODEs    | Description                                                  |
 | ---------------------------- | ---------- | ------------------------------------------------------------ |
 | `telnet.mudstandards.org`    | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
-| `telnetb64.mudstandards.org` | 0 (TEXT)   | The complete telnet stream is packaged in a Base64 encoding TEXT frame. All telnet options are transmitted this way too. |
+| `telnetb64.mudstandards.org` | 0 (TEXT)   | The complete telnet stream is packaged in a Base64 encoding TEXT frame. All telnet options are transmitted this way too.<br />**Note: Usage of this subprotocol is not suggested, because of the unneccesary complexity.** |
 | `terminal.mudstandards.org`  | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`      | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
 | `divstream.mudstandards.org` | 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
@@ -67,3 +67,10 @@ In theory extensions would be suitable to multiplex a WebSocket payload into sev
 
 - The websocket, once established, has no means to change negotiated protocols or extensions and therefore can not be used in a similar fashion like DO/WILL/DONT/WONT of telnet. It is up to an application layer protocol to provide that.
 - The protocol `telnet.mudstandards.org` usually means that the server passes data to and from a local telnet socket. This hides the original source IP from the MUD. The server might intercept MNES subnegotiation and insert the `IPADDRESS` data, but that is a lot of effort
+
+## Websockets and MSSP
+
+If a game supports connections via websocket, it is suggested that it uses the following MSSP variables:
+
+* `WEBSOCKET` - the URI at which the server can be reached. For example `wss://mygame.net/`
+* `WEBSOCKET_SUBPROTOCOLS` - a comma-separated list of subprotocol identifiers
