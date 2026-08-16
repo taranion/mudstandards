@@ -43,11 +43,12 @@ This document suggests the following protocols:
 
 | Protocol*                    | OPCODEs    | Description                                                  |
 | ---------------------------- | ---------- | ------------------------------------------------------------ |
-| `telnet.mudstandards.org`    | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too. |
+| `telnet.mudstandards.org`    | 1 (BINARY) | The complete telnet stream is packaged in BINARY frames. All telnet options are transmitted this way too.<br />**This is the most commonly used frame usage** |
 | `telnetb64.mudstandards.org` | 0 (TEXT)   | The complete telnet stream is packaged in a Base64 encoding TEXT frame. All telnet options are transmitted this way too.<br />**Note: Usage of this subprotocol is not suggested, because of the unneccesary complexity.** |
 | `terminal.mudstandards.org`  | 1 (BINARY) | BINARY frames contain input/output and ANSI control codes. Encoded as UTF-8 |
 | `gmcp.mudstandards.org`      | 0 + 1      | BINARY frames do contain regular ANSI in- and output. TEXT frames contain UTF-8 encoded GMCP commands |
 | `divstream.mudstandards.org` | 1 (BINARY) | BINARY frames do contain HTML DIV elements to render at the bottom of the scrolling area. |
+| `telnet`                     | 1 (BINARY) | same as `telnet.mudstandards.org`                            |
 | e.g. *myprotocol.mydomain*   | ?          | Any codebase custom protocol a client supports               |
 
 *The RFC requests that protocol names are build upon a domain name, to prevent name collisions. 
