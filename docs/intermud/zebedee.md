@@ -287,6 +287,47 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         "www"
             The URL of the mud's web page (e.g. http://mud.stack.nl/) 
 
+
+
+        Extensions implemented by some MUDs:
+
+        "mud_port_tls"
+            The portnumber to establish a TLS/SSL encrypted connection to this mud
+
+        "encoding"
+            The encoding this mud prefers for intermud packages
+            Intermud communication should default to ASCII, since this is the only encoding guaranteed to work everywhere.
+            If a MUD can handle UTF8 or any other more advanced encoding it can announce this capability here.
+            Other MUDs sending requests can then upgrade the encoding accordingly.
+
+        "hosts-json"
+            Since the format of the 'hosts' query was never standardized there is quite some variety of formats in the wild.
+            Some MUDs use different separators, different columns, or a different order of columns.
+            The most commonly used separator ':' also clashes with IPv6 addresses (prompting some MUDs to use a different separator like ';').
+            
+            This query aims to rectify this, by sending the host list as a JSON array of objects.
+            
+            Mandatory fields are:
+            {
+                "name": the mud name,
+                "ip": the mud's IP; if the MUD supports IPv4 and IPv6 this should be the v4 address for maximum compatibility,
+                "udp_port": the port for UDP intermud communication,
+            }
+            
+            Additional fields can be added if available:
+            {
+                "ip6": the MUD's IPv6 address (additionally to IPv4 in the "ip" field)
+                "mud_port": the port for telnet connections,
+                "mud_port_tls": the port for TLS/SSL connections,
+                "udp_encoding": the MUD's preferred encoding for intermud communication,
+                "commands": [ an array of supported commands ],
+                "queries": [ an array of supported queries ],
+                "last_contact": the unixtime this mud was last seen,
+            }
+            
+        "mssp-json"
+            The MUD's MSSP data as JSON object.
+
 ### reply
     This request method is used for _all_ replies.
     
