@@ -187,6 +187,15 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
     
     "DATA"
         The player of whom information is requested 
+    
+    Extensions implemented by some MUDs (see "ANSI colours over Intermud" below):
+    
+    "ansi" (optional)
+        The colour level the requesting player can actually see:
+        "no", "2", "8", "16", "256", "truecolor" or "screenreader"
+    
+    "charset" (optional)
+        "utf-8" or "ascii": whether the requesting player can display UTF-8
 
 ### locate
     Check whether a certain player is logged on at a remote mud. This request is usually send to all known muds at the same time.
@@ -332,6 +341,11 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         "mssp-json"
             The MUD's MSSP data as JSON object.
 
+        "ansi"
+            The MUD's baseline for ANSI colour codes in anything its players receive over intermud:
+            "no", "2", "8", "16", "256" or "truecolor". No reply means "no".
+            See "ANSI colours over Intermud" below.
+
 ### reply
     This request method is used for _all_ replies.
     
@@ -370,6 +384,102 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
             Return a concise listing. 
         "alpha" "a" "alphabetisch" "-alpha" "-a"
             Sort the players alphabetically. 
+
+## ANSI colours over Intermud (query ansi)
+
+An extension implemented by Midgard and Beutelland in October 2026. It is backwards compatible: MUDs that don't support it ignore the extra fields and simply receive no colour content. A detailed description with example code for the common inetd (MorgenGrauen mudlib) is available at [midgardmud.de/intermud/ansi.html](https://midgardmud.de/intermud/ansi.html) (English and German).
+
+### Motivation
+
+Replies to intermud requests, most notably `finger`, may contain ANSI colour codes, for example a character portrait made of half-block characters (▀) with 24-bit foreground and background colours. The replying MUD, however, knows nothing about the player at the other end: whether their client handles 24-bit, 256 or only 16 colours, whether it understands UTF-8, or whether the requesting MUD passes colour codes through at all. Between existing MUDs this has caused:
+
+- blinking text, because a filter that doesn't know `38;2;r;g;b` reads the numbers one by one (`38;2;5;0;255` contains a `5`: blink),
+- grey or white areas where unknown codes were replaced by the default colour,
+- question marks instead of pictures, because `▀` doesn't survive a conversion to ASCII.
+
+### Principle
+
+In the end the player's terminal decides, and only the MUD the player is connected to knows it. The extension therefore has two levels:
+
+1. **Per request:** the requesting MUD tells the replying MUD what its player can see (fields `ansi` and `charset` in the request). This always takes precedence.
+2. **MUD-wide:** `query ansi` returns a MUD's baseline, which applies when nothing is known about the individual player.
+
+As with other non-standard fields, the field names are lower case (compare the `udpm_` fields of intermud mail).
+
+### query ansi
+
+A MUD asks another with `REQ:query` and `DATA:ansi`. The reply (`REQ:reply`, `QUERY:ansi`) carries the MUD's baseline in `DATA`: the colour level that reliably reaches its players in anything they receive over intermud (`finger`, but also `tell` or mail) when nothing is known about the individual player. It should not be higher than what the MUD itself passes through to its players. No reply means `no`. Supporting MUDs also list `ansi` in their reply to `query list`.
+
+The query is modelled on `query encoding`. A MUD that sends colourful content asks at startup and whenever a new MUD appears, and remembers the answer, for example as an additional column in its host list. A missing reply must not cause a MUD to be marked as down.
+
+### Fields ansi and charset in finger requests
+
+A `finger` request may carry two optional fields describing the requesting player:
+
+- `ansi`: the colour level that really reaches the player, i.e. the lower of what the player's terminal can do and what the requesting MUD passes through. Values as below, plus `screenreader`.
+- `charset`: `utf-8` or `ascii`.
+
+Possible sources for the colour level are MTTS (bit 256: truecolor, bit 8: 256 colours, bit 1: ANSI), a terminal type containing `256color`, the MUD's own web client, or a player setting. A player setting is useful because clients sometimes overestimate themselves, for example tintin++ inside GNU screen. If the level is unknown, the field should be left out rather than guessed; the requesting MUD's answer to `query ansi` then applies.
+
+### Values
+
+Each level includes the ones below it.
+
+| Value | Meaning | Allowed SGR codes |
+|---|---|---|
+| `no` | no colours, no codes | none |
+| `2` | monochrome, highlighting only | `1` (bold/bright), `4` (underline), `7` (inverse); reset with `0`, `22`, `24`, `27` |
+| `8` | the eight basic colours | additionally `30`–`37`, `40`–`47` |
+| `16` | plus the bright colours | additionally `90`–`97`, `100`–`107` |
+| `256` | 256-colour palette | additionally `38;5;n`, `48;5;n` |
+| `truecolor` | 24 bit | additionally `38;2;r;g;b`, `48;2;r;g;b` |
+| `screenreader` | player using a screen reader: plain text only, no pictures, no colours and no frames, lines or boxes. Only in the per-request `ansi` field, never as a reply to `query ansi`. | none |
+
+- Blinking (`5`) deliberately belongs to no level.
+- For bright colours, senders should use `90`–`97` and `100`–`107` rather than `1`: depending on the terminal, bold is shown brighter, only bold or not at all, and there is no equivalent for the background.
+- Values are strings, including `2`, `8`, `16` and `256`. Following the packet encoding rules above, digit-only strings are sent with a `$` prefix (the common inetd's `encode()` does this), otherwise they arrive as integers. Receivers should accept both.
+
+### Choosing what to send
+
+A MUD that sends colourful content in a reply decides in this order:
+
+1. The `ansi` and `charset` fields of the request, if present.
+2. Otherwise the requesting MUD's reply to `query ansi`.
+3. Otherwise `no`: nothing colourful.
+
+Without UTF-8, that is with `charset:ascii` or when the requesting MUD doesn't report UTF-8 for `query encoding`, only characters that survive any character set should be used, for example spaces with a background colour instead of half blocks.
+
+### Example packets
+
+```
+# Midgard asks Beutelland for its baseline
+REQ:query|NAME:Midgard|UDP:4246|ID:5|DATA:ansi
+
+# Beutelland replies: 256 colours (digits with a $ prefix)
+REQ:reply|NAME:Beutelland|UDP:4246|ID:5|QUERY:ansi|DATA:$256
+
+# A player in Beutelland fingers eirik@Midgard;
+# their client handles 256 colours and UTF-8
+REQ:finger|NAME:Beutelland|UDP:4246|ID:17|SND:invisible|ansi:$256|charset:utf-8|DATA:eirik
+```
+
+### Security
+
+- A MUD receiving replies for its players should pass through only SGR sequences (`ESC [`, then digits, `;` and `:`, then `m`) and remove every other escape sequence: other CSI commands such as cursor movement or clearing the screen, OSC sequences (for example window titles or links) and anything else following `ESC`, as well as control characters other than newline and tab. Otherwise a foreign MUD could alter the player's screen or, with status requests such as `ESC [ 6 n`, make the player's terminal send input to the MUD.
+- Replies go to the source address of a UDP packet, which can be forged. A MUD sending large replies (a picture can take dozens of packets) should limit how many it sends per minute, so that `finger` cannot be abused as an amplifier.
+
+### Backwards compatibility
+
+The common inetd hands unknown fields such as `ansi` and `charset` to the request modules along with the other data, and modules that don't know them ignore them. MUDs that don't answer `query ansi` receive no colour content, which is the safe default. There is no new service and no change to the packet format.
+
+### Implementations
+
+| MUD | Reply to query ansi | Sends with finger | Serves colour content |
+|---|---|---|---|
+| Midgard | `256` | `ansi` (when the terminal is known; `screenreader` for players in plain-text mode) and `charset` | character portraits in truecolor, 256, 16 and 8 colours and as a spaces-only ASCII version; plain text for `screenreader` |
+| Beutelland | `256` | `ansi` | – |
+
+The idea of `query ansi` and of per-player information came from Invisible@Beutelland; Midgard worked out the fields and the picture versions.
 
 ## The MUD list format
 
