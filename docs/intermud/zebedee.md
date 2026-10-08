@@ -477,7 +477,7 @@ The common inetd hands unknown fields such as `ansi` and `charset` to the reques
 | MUD | Reply to query ansi | Sends with finger | Serves colour content |
 |---|---|---|---|
 | Midgard | `256` | `ansi` (when the terminal is known; `screenreader` for players in plain-text mode) and `charset` | character portraits in truecolor, 256, 16 and 8 colours and as a spaces-only ASCII version; plain text for `screenreader` |
-| Beutelland | `256` | `ansi` (`no`, `2`, `256`, or `screenreader` - depending on the player's settings) and `charset` (the player's connection encoding) | – |
+| Beutelland | `256` | `ansi` (`no`, `2`, `256`, or `screenreader` - depending on the player's settings) and `charset` (the player's connection encoding) | frames & content in 8, 2 or no colours; no frames for `screenreader` |
 
 The idea of `query ansi` and of per-player information came from Invisible@Beutelland; Midgard worked out the fields and the picture versions.
 
