@@ -308,13 +308,16 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
             This query aims to rectify this, by sending the host list as a JSON array of objects.
             
             Mandatory fields are:
+            ```
             {
                 "name": the mud name,
                 "ip": the mud's IP; if the MUD supports IPv4 and IPv6 this should be the v4 address for maximum compatibility,
                 "udp_port": the port for UDP intermud communication,
             }
+            ```
             
             Additional fields can be added if available:
+            ```
             {
                 "ip6": the MUD's IPv6 address (additionally to IPv4 in the "ip" field)
                 "mud_port": the port for telnet connections,
@@ -324,6 +327,7 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
                 "queries": [ an array of supported queries ],
                 "last_contact": the unixtime this mud was last seen,
             }
+            ```
             
         "mssp-json"
             The MUD's MSSP data as JSON object.
