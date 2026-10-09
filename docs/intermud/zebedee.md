@@ -385,6 +385,12 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         "alpha" "a" "alphabetisch" "-alpha" "-a"
             Sort the players alphabetically. 
 
+    Extensions implemented by some MUDs (see "ANSI colours over Intermud" below):
+    
+    "ansi" (optional)
+        The colour level the requesting player can actually see:
+        "no", "2", "8", "16", "256", "truecolor" or "screenreader"
+
 ## ANSI colours over Intermud (query ansi)
 
 An extension implemented by Midgard and Beutelland in October 2026. It is backwards compatible: MUDs that don't support it ignore the extra fields and simply receive no colour content. A detailed description with example code for the common inetd (MorgenGrauen mudlib) is available at [midgardmud.de/intermud/ansi.html](https://midgardmud.de/intermud/ansi.html) (English and German).
@@ -477,7 +483,7 @@ The common inetd hands unknown fields such as `ansi` and `charset` to the reques
 | MUD | Reply to query ansi | Sends with finger | Serves colour content |
 |---|---|---|---|
 | Midgard | `256` | `ansi` (when the terminal is known; `screenreader` for players in plain-text mode) and `charset` | character portraits in truecolor, 256, 16 and 8 colours and as a spaces-only ASCII version; plain text for `screenreader` |
-| Beutelland | `256` | `ansi` | – |
+| Beutelland | `256` | `ansi` (`no`, `2`, `256`, or `screenreader` - depending on the player's settings) and `charset` (the player's connection encoding) | frames & content in `8`, `2` or `no` colours; no frames & header ASCII-art for `screenreader` |
 
 The idea of `query ansi` and of per-player information came from Invisible@Beutelland; Midgard worked out the fields and the picture versions.
 
