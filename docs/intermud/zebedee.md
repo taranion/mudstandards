@@ -385,6 +385,12 @@ Note that the fields "NAME" and "UDP_PORT" should be present in every message. V
         "alpha" "a" "alphabetisch" "-alpha" "-a"
             Sort the players alphabetically. 
 
+    Extensions implemented by some MUDs (see "ANSI colours over Intermud" below):
+    
+    "ansi" (optional)
+        The colour level the requesting player can actually see:
+        "no", "2", "8", "16", "256", "truecolor" or "screenreader"
+
 ## ANSI colours over Intermud (query ansi)
 
 An extension implemented by Midgard and Beutelland in October 2026. It is backwards compatible: MUDs that don't support it ignore the extra fields and simply receive no colour content. A detailed description with example code for the common inetd (MorgenGrauen mudlib) is available at [midgardmud.de/intermud/ansi.html](https://midgardmud.de/intermud/ansi.html) (English and German).
