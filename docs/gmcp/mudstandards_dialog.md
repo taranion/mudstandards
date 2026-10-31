@@ -1,5 +1,5 @@
 ---
-sidebar_label: mudstd.resources
+sidebar_label: mudstd.dialog
 ---
 # The ``mudstd.dialog`` package
 
